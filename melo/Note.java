@@ -5,8 +5,7 @@
  * License as published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
  *
  * You should have received a copy of the GNU General Public
@@ -52,8 +51,15 @@ public class Note {
         return new Note(noteDeno.copy());
     }
 
+    public Note(Denotator noteDeno, Status.CopyMode mode) {
+        if (mode == Status.CopyMode.NOCOPY) {
+            this.noteDeno = (LimitDenotator)noteDeno;
+        } else {
+            this.noteDeno = (LimitDenotator)(Note.copy(noteDeno).toDenotator());
+        }
+    }
     public Note(Denotator noteDeno) {
-        this.noteDeno = (LimitDenotator)noteDeno;
+        this(noteDeno, Status.CopyMode.NOCOPY);
     }
     public double getOnset() {
         SimpleDenotator onsetDeno = (SimpleDenotator)noteDeno.getFactor(0);
@@ -139,5 +145,15 @@ public class Note {
             noteDeno.setFactor(4, voice.copy());
         } catch (Exception e) {
         }
+    }
+    public Denotator toDenotator() {
+        return noteDeno;
+    }
+    public void printLong() {
+        System.out.println("Onset: " + getOnset() + " Pitch: " + getPitch() + " Loudness: " + getLoudness() + " duration: " + getDuration() + " voice: " + getVoice());
+    }
+
+    public void print() {
+        System.out.println(String.format("Onset: %.2f", getOnset()) + String.format(" Pitch: %d", (int)getPitch()));
     }
 }
