@@ -1,5 +1,6 @@
 rm -f MeloSubMotifRubette.class MeloSubMotifRubette.jar
-javac -classpath ../rubato.jar MeloSubMotifRubette.java
-jar cvmf MeloSubMotifManifest MeloSubMotifRubette.jar MeloSubMotifRubette.class
-cp MeloSubMotifRubette.jar /home/nil/.rubato/plugins/
-java -jar ../rubato.jar
+rm /home/nil/.rubato/plugins/melo.jar
+javac -classpath ../rubato.jar melo/MeloSubMotifRubette.java melo/Note.java
+jar cvmf MeloManifest melo.jar melo
+cp melo.jar /home/nil/.rubato/plugins/
+java -Djava.library.path=../ -jar ../rubato.jar

@@ -17,6 +17,9 @@
  *
  */
 
+
+package melo;
+
 import java.util.*;
 
 import org.rubato.base.*;
@@ -36,14 +39,9 @@ import org.rubato.logeo.FormFactory;
 
 
 /**
- * The Inversion Rubette stores its input denotator
- * and an inversion note denotator
- * and provides the inverted score on its outputs
- * inversion is at a (double) pitch from a pitch denotator at second input
- * @author Guerino Mazzola
+ * The Melo Rubette which generates and analyzes motives
+ * @author Mijia Jiang 
  */
-
-
 
 
 
@@ -71,11 +69,12 @@ public class MeloSubMotifRubette extends SimpleAbstractRubette {
 
 
     public void run(RunInfo runInfo) {
-        Denotator d;
+        //notes.add(note.copy())
 		//type 0: SimpleDenotator
-		//type 1: 
-		//type 2: 
+		//type 1: Limit
+		//type 2: CoLimit
 		//type 3: PowerDenotator 
+        //type 4: List
         if (getInput(0).getType() != 3 || getInput(1).getType() != 0 || getInput(2).getType() != 0) {
 
         } else {
@@ -93,13 +92,6 @@ public class MeloSubMotifRubette extends SimpleAbstractRubette {
             printAllMotives(p); 
             setOutput(0, p);
         }
-
-        //if(3!=getInput(0).getType()||0!=getInput(1).getType()){
-        //    d = getInput(0);}
-        //else{
-        //    d = invertScore((PowerDenotator)getInput(0), (SimpleDenotator)getInput(1));}
-		//	//set the 0th output as  denotator d
-        //    setOutput(0, d);
     }
     
     public void buildNecessaryForm() {
@@ -120,55 +112,19 @@ public class MeloSubMotifRubette extends SimpleAbstractRubette {
         this.allMotivesForm = FormFactory.makePowerForm("allMotivesCollection", sameLengthLimitForm);
     }
     
-    //score inversion method
-    public PowerDenotator invertScore(PowerDenotator input, SimpleDenotator pitch){
-		//
-        PowerDenotator copyScore = input.copy();
-        //getRational: returns the rational contained in a QElement denotator
-        //doubleValue: converts the rational into a double
-        double inversion = pitch.getRational().doubleValue();
-        //the number of coordinates of the denotator
-        int l = input.getFactorCount();
-        for(int i = 0;i<l;i++){
-            //get the ith note
-            LimitDenotator notei = (LimitDenotator)copyScore.getFactor(i);
-            //replace the note with its inversion
-            notei = replace(notei,inversion);
-        }
-        return copyScore;
-    }
     
-    //inversion of single notes at double value invert
-    public LimitDenotator replace(LimitDenotator deno, double invert){
-        //0, 1, 2, 3, 4
-        //onset, pitch, LoudNess, Duration, Voice
-        SimpleDenotator pitch = (SimpleDenotator)deno.getFactor(1);
-        //current pitch
-        double pitchrat = pitch.getRational().doubleValue();
-        //new pitch
-        double pitchvalue =2*invert - pitchrat;
-        //if new pitch < 0, replace it with original pitch (can't invert)
-        double alternative = (pitchvalue>=0)?pitchvalue:pitchrat;
-        //get the simple form form pitch simple denotator
-        SimpleForm form = pitch.getSimpleForm();
-        //generate a QElement with a new rational by alternative pitch
-        QElement mod = new QElement(new Rational(alternative));
-        try {
-            SimpleDenotator P = new SimpleDenotator(this.emptyName,form,mod);
-            //set the new pitch
-            deno.setFactor(1,P);
-        } catch (Exception e) {} return deno;
-    }
 
     //get the onset from a score
     double getOnset(PowerDenotator score, int index) {
-        LimitDenotator note = (LimitDenotator)score.getFactor(index);
-        SimpleDenotator onset = (SimpleDenotator)note.getFactor(0);
-        double onsetValue = onset.getReal();
-        return onsetValue;
+        //Note note = new Note(score.getFactor(index));
+        //return note.getOnset();
+        LimitDenotator noteDeno = (LimitDenotator)score.getFactor(index);
+        SimpleDenotator onsetDeno = (SimpleDenotator)noteDeno.getFactor(0);
+        double onset = onsetDeno.getReal();
+        return onset;
     }
 
-
+    //TODO
     //DFS search for finding motives within [nextAvaliableIndex, rightBound)
     void searchMotives(ArrayList<Integer> selects, ArrayList<ArrayList<ArrayList<Integer>>> motives, int currentSelectPos, int nextAvaliableIndex, int notesLimit, double span, PowerDenotator score) {
         if (currentSelectPos == notesLimit) {
@@ -264,6 +220,7 @@ public class MeloSubMotifRubette extends SimpleAbstractRubette {
                     LimitDenotator note = (LimitDenotator)score.getFactor(motives.get(notesLimit - 1).get(i).get(j));
                     //set the jth note in motive as note
                     notes.add(note);
+                    //notes.add(note.copy())
                 }
                 PowerDenotator motive = new PowerDenotator(NameDenotator.make(""), this.scoreForm, notes);
                 motiveList.add(motive);

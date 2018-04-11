@@ -1,0 +1,75 @@
+0: Onset
+1: Pitch
+2: Loudness
+3: Duration 
+4: Voice
+
+(PowerForm)Repository.systemRepository().getForm("Score");
+(SimpleForm)Repository.systemRepository().getForm("Integer");
+
+find a form:
+pitch.getSimpleForm()
+..getLimitForm()
+..getPowerForm()
+
+build a power form:
+FormFactory.makePowerForm("nameofthis", anyform)
+
+
+build a simple form:
+1.find a simple form from system
+(SimpleForm)Repository.systemRepository().getForm("Integer");
+2.build a simple form
+
+
+build a limit form:
+List<Form> alist = new LinkedList<Form>();
+List<String> alistLabels = new LinkedList<String>();
+...
+alist.add(a form);
+alistLabels.add(a name for the form);
+....
+a = FormFactory.makeLimitForm("nameofthis", alist);
+a.setLabels(alistLabels);
+
+
+
+build a denotator
+----------------------------
+
+build a simple denotator (3 different modules)
+new SimpleDenotator(NameDenotator.make("somename"), aform, new ZElement(x))
+new SimpleDenotator(NameDenotator.make("somename"), aform, new RElement(y))
+new SimpleDenotator(NameDenotator.make("somename"), aform, new QElement(new Rational(z)))
+
+
+build a limit denotator
+List<Denotator> alist = new LinkedList<Denotator>();
+....
+SimpleDenotator a = ...
+alist.add(a);
+PowerDenotator b = ..
+alist.add(b);
+....(a b can be different type)
+new LimitDenotator(NameDenotator.make(""), aform, alist);
+
+
+build a power denotator:
+List<Denotator> notes = new ArrayList<Denotator>();
+----
+LimitDenotator a = ...
+notes.add(a);
+LimitDenotator b = ...
+notes.add(b);
+---(a b is the same type)
+new PowerDenotator(NameDenotator.make("", aform, alist)
+
+
+before build denotator:
+..Denotator ....() {
+    try {
+    } catch (RubatoException e) {
+        e.printStackTrace();
+        return null;
+    }
+}
