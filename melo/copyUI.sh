@@ -1,1 +1,1 @@
-cp ~/CS/Java/MeloRubetteUI/src/melo/MeloDisplay.java ./
+cp ~/CS/Java/MeloRubetteUI/src/melo/MeloMainScreen.java ./MeloMainScreenNew

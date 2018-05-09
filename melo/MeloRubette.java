@@ -56,31 +56,137 @@ public class MeloRubette extends SimpleAbstractRubette {
 
     //UI
     private JPanel properties = null;
-    //manager of data
-    private MotifManager manager = null;
+    //motifManager of data
+    private MotifManager motifManager = null;
     //input
-    private PowerDenotator scoreDeno;
+    private PowerDenotator scoreDeno = null, scoreDenoPrev = null;
     private Score score;
-    private int notesLimit;
-    private double span;
+    //UI Input
+    private boolean ifInv = false, ifRetro = false, ifRetroInv = false;
+    private int noteLimit = 1;
+    private double span = 5;
+    private int shapeSelec = 0;
+    private double neighbour = 5;
+    private boolean ifNoteLimitChanged = false, ifSpanChanged = false;
+    private boolean ifVariChanged = true;
+    private boolean ifShapeSelecChanged = true;
+    private boolean ifNeighbourChanged = true;
 
-    public void setSpan(double value) {
-        span = value;
+
+    //
+    public void setNoteLimit(int noteLimitT) {
+        if (noteLimit != noteLimitT) {
+            ifNoteLimitChanged = true;
+        }
+        noteLimit = noteLimitT;
+        System.out.println("New Notes' limit: " + noteLimit);
+    }
+    public void setSpan(double spanT) {
+        if (span != spanT) {
+            ifSpanChanged = true;
+        }
+        span = spanT;
         System.out.println("New Span: " + span);
     }
-
-    public void setNotesLimit(int value) {
-        notesLimit = value;
-        System.out.println("New Notes' limit: " + value);
+    //
+    public void setIfInv(boolean ifInvT){
+        if (ifInv != ifInvT) {
+            ifVariChanged = true;
+        }
+        ifInv = ifInvT;
+        System.out.println("New ifInv: " + ifInv);
     }
+    public void setIfRetro(boolean ifRetroT){
+        if (ifRetro != ifRetroT) {
+            ifVariChanged = true;
+        }
+        ifRetro = ifRetroT;
+        System.out.println("New ifRetro: " + ifRetro);
+    }
+    public void setIfRetroInv(boolean ifRetroInvT){
+        if (ifRetroInv != ifRetroInvT) {
+            ifVariChanged = true;
+        }
+        ifRetroInv = ifRetroInvT;
+        System.out.println("New ifRetroInv: " + ifRetroInv);
+    }
+    //
+    public void setShapeSelec(int shapeSelecT) {
+        if (shapeSelec != shapeSelecT) {
+            ifShapeSelecChanged = true;
+        }
+        shapeSelec = shapeSelecT;
+        System.out.println("New Shape Selection: " + shapeSelec);
+    }
+    //
+    public void setNeighbour(double neighbourT) {
+        if (neighbour != neighbourT) {
+            ifNeighbourChanged = true;
+        }
+        neighbour = neighbourT;
+        System.out.println("New Neighbour: " + neighbour);
+    }
+
+    public void calWeight() {
+        calWeight(noteLimit, span, ifInv, ifRetro, ifRetroInv, shapeSelec, neighbour);
+    }
+    public void calWeight(int noteLimitT, double spanT, double neighbourT) {
+        calWeight(noteLimitT, spanT, ifInv, ifRetro, ifRetroInv, shapeSelec, neighbourT);
+    }
+
+
+    public void calWeight(int noteLimit, double span, boolean ifInv, boolean ifRetro, boolean ifRetroInv, int shapeSelec, double neighbour) {
+        long startTime = System.nanoTime();
+        setNoteLimit(noteLimit);
+        setSpan(span);
+        setIfInv(ifInv);
+        setIfRetro(ifRetro);
+        setIfRetroInv(ifRetroInv);
+        setShapeSelec(shapeSelec);
+        setNeighbour(neighbour);
+
+        //if
+        if (score == null) {
+            System.out.println("Run rubato to set score first");
+        } else {
+            System.out.println("Calculatint the weight...");
+            if (ifNoteLimitChanged || ifSpanChanged) {
+                System.out.println("Note limit or span changed...");
+                motifManager = new MotifManager(scoreDeno, noteLimit, span); 
+                motifManager.calWeight(ifInv, ifRetro, ifRetroInv, shapeSelec, neighbour);
+                ifNoteLimitChanged = false;
+                ifSpanChanged = false;
+                ifVariChanged = false;
+                ifNeighbourChanged = false;
+            } else if (ifVariChanged || ifShapeSelecChanged) {
+                System.out.println("vari changed...");
+                motifManager.resetVariAndShape(ifInv, ifRetro, ifRetroInv, shapeSelec);
+                ifVariChanged = false;
+                ifNeighbourChanged = false;
+            } else if (ifNeighbourChanged) {
+                System.out.println("neighbour changed...");
+                motifManager.resetNeighbour(neighbour);
+                ifNeighbourChanged = false;
+            } else {
+                System.out.println("no thing changed...");
+            }
+            motifManager.print();
+            updateOutput();
+        }
+        long endTime = System.nanoTime();
+        long totalTimeDuration = (endTime - startTime) / 1000; //in secs
+        System.out.println("Calculation Elapsed time: "  + totalTimeDuration + " secs");
+    }
+
+
 	
     public MeloRubette() {
 		//input 0: score (Power)
-		//input 1: NotesLimit (Simple -> int)
+		//input 1: NoteLimit (Simple -> int)
         //input 2: Span (Simple -> double)
         this.setInCount(1);
         //output 0: score (Power)
-        this.setOutCount(1);
+        this.setOutCount(3);
     }
 
     public void run(RunInfo runInfo) {
@@ -91,17 +197,11 @@ public class MeloRubette extends SimpleAbstractRubette {
 		//type 3: PowerDenotator 
         //type 4: List
         if (getInput(0).getType() != 3) {
-        } else {
-            if (score == null) {
-                scoreDeno = (PowerDenotator)getInput(0);
-                score = new Score(scoreDeno);
-                notesLimit = 1;
-                span = 1.0;
-            } else {
-                //in case the input change 
-                scoreDeno = (PowerDenotator)getInput(0);
-                score = new Score(scoreDeno);
-            }
+		//TODO        
+	} else {
+            scoreDenoPrev = scoreDeno;
+            scoreDeno = (PowerDenotator)getInput(0);
+            score = new Score(scoreDeno);
             updateOutput();
         }
     }
@@ -137,27 +237,46 @@ public class MeloRubette extends SimpleAbstractRubette {
     }
     public JComponent getProperties() {
         if (this.properties == null) {
-            this.properties = new MeloDisplay(this);
+            this.properties = new MeloMainScreen(this);
         }
         return this.properties;
     }
 
     public void updateOutput() {
-       manager = new MotifManager(scoreDeno, notesLimit, span); 
-       PowerDenotator p = (PowerDenotator)manager.toDenotator();
-       manager.print();
-       setOutput(0, p);
+        if ((scoreDenoPrev != null && !scoreDenoPrev.equals(scoreDeno)) || motifManager == null) {
+            motifManager = new MotifManager(scoreDeno, noteLimit, span); 
+            motifManager.print();
+        }
+
+        Denotator weightedMotifListDeno  = motifManager.toWeightedMotifListDeno();
+        Denotator weightedScoreDeno  = motifManager.toWeightedScoreDeno();
+        Denotator weightedOnsetListDeno = motifManager.toWeightedOnsetListDeno();
+        //System.out.println("Set output ( weighted motif list deno, etc..)");
+        setOutput(0, weightedMotifListDeno);
+        PowerDenotator weightedMotifListDeno2 = (PowerDenotator)weightedMotifListDeno;
+        LimitDenotator weightedMotifDeno = (LimitDenotator)weightedMotifListDeno2.getFactor(0);
+        SimpleDenotator weightDeno = (SimpleDenotator)weightedMotifDeno.getFactor(1);
+        //System.out.println("weightedMotif first weight: " + weightDeno.getReal());
+        setOutput(1, weightedScoreDeno);
+        setOutput(2, weightedOnsetListDeno);
     }
 
+
     public boolean applyProperties() {
-        System.out.println("apply properties");
-        //initialize note's limit and span
-        if (scoreDeno != null) {
-            System.out.println("Initializing motif manager.");
-            updateOutput();
-        } else {
-            System.out.println("scoreDeno == null");
+        MeloMainScreen mainScreen = (MeloMainScreen) properties;
+        if (mainScreen != null) {
+            System.out.println("notelimit from screen: " + mainScreen.getNoteLimit());
+            calWeight(mainScreen.getNoteLimit(), mainScreen.getSpan(), mainScreen.getNeighbour());
         }
+        //TODO
+        //System.out.println("apply properties");
+        ////initialize note's limit and span
+        //if (scoreDeno != null) {
+        //    System.out.println("Initializing motif motifManager.");
+        //    updateOutput();
+        //} else {
+        //    System.out.println("scoreDeno == null");
+        //}
         return true;
     }
 }

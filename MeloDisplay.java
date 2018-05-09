@@ -4,10 +4,12 @@
  * and open the template in the editor.
  */
 package melo;
+import java.awt.event.*;
+import java.beans.*;
 
 /**
  *
- * @author nil
+ * @author Mijia Jiang 
  */
 public class MeloDisplay extends javax.swing.JPanel {
 
@@ -37,18 +39,30 @@ public class MeloDisplay extends javax.swing.JPanel {
 
         notesLimitLabel.setText("note's limit");
 
-        notesLimitInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        notesLimitInput.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 notesLimitInputActionPerformed(evt);
+            }
+        });
+        notesLimitInput.addPropertyChangeListener(new PropertyChangeListener() {
+            public void propertyChange(PropertyChangeEvent evt) {
+                System.out.println("new notes' limit!!!!!.");
+                melo.setNotesLimit(Integer.parseInt(notesLimitInput.getText()));
             }
         });
 
         spanLabel.setText("span");
         initializeValue();
 
-        spanInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        spanInput.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 spanInputActionPerformed(evt);
+            }
+        });
+        spanInput.addPropertyChangeListener(new PropertyChangeListener() {
+            public void propertyChange(PropertyChangeEvent evt) {
+                System.out.println("new span!!!!");
+                melo.setSpan(Double.parseDouble(spanInput.getText()));
             }
         });
 
@@ -87,15 +101,15 @@ public class MeloDisplay extends javax.swing.JPanel {
         spanInput.setText("1.0");
     }
 
-    private void notesLimitInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_notesLimitInputActionPerformed
+    private void notesLimitInputActionPerformed(ActionEvent evt) {
         melo.setNotesLimit(Integer.parseInt(notesLimitInput.getText()));
         System.out.println("new notes' limit.");
-    }//GEN-LAST:event_notesLimitInputActionPerformed
+    }
 
-    private void spanInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_spanInputActionPerformed
+    private void spanInputActionPerformed(ActionEvent evt) {
         melo.setSpan(Double.parseDouble(spanInput.getText()));
         System.out.println("new span");
-    }//GEN-LAST:event_spanInputActionPerformed
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

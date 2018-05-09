@@ -43,7 +43,7 @@ public class Score {
 
     protected List<Integer> rankList;
     public boolean ifMotif;
-    public boolean ifRev;
+    public boolean ifInv;
     protected List<Double> weightList;
     protected double totalWeight = 0;
 
@@ -56,21 +56,22 @@ public class Score {
 
     /**********************BASIC START***************************/
     public Score(Score score, List<Integer> rankList, Status.CopyMode mode) {
-        this(score.toScoreDeno(), rankList, score.getIfRev(), mode);
+        this(score.toScoreDeno(), rankList, mode);
     }
     public Score(Score score, List<Integer> rankList) {
-        this(score.toScoreDeno(),rankList, score.getIfRev(), Status.CopyMode.NOCOPY);
+        this(score.toScoreDeno(),rankList,Status.CopyMode.NOCOPY);
     }
-    public Score(Denotator scorerDenoGen, List<Integer> rankListT, boolean ifRevT, Status.CopyMode mode) {
+    public Score(Denotator scorerDenoGen, List<Integer> rankListT, Status.CopyMode mode) {
+        System.out.println("Score 3");
+        System.out.println("rankListT == null:" + rankListT == null);
+        System.out.println("rankListT.isEmpty:" + rankListT.isEmpty());
         genForm();
         try {
-            ifRev = ifRevT;
             scoreForm = (PowerForm)Repository.systemRepository().getForm("Score");
             PowerDenotator scorerDeno = (PowerDenotator)scorerDenoGen;
             rankList = new ArrayList<Integer>();
             weightList = new ArrayList<Double>();
-            if (rankListT == null || rankListT.isEmpty() || rankListT.get(0) == -1) {
-                System.out.println("this is not motif");
+            if (rankListT == null || rankListT.isEmpty()) {
                 ifMotif = false;
                 for (int rankId = 0; rankId < scorerDeno.getFactorCount(); rankId++) { 
                     rankList.add(-1);
@@ -78,8 +79,8 @@ public class Score {
                 for (int weightId = 0; weightId < scorerDeno.getFactorCount(); weightId++) { 
                     weightList.add(0.0);
                 }
+                System.out.println("update weight list with size: " + weightList.size());
             } else {
-                System.out.println("this is motif");
                 ifMotif = true;
                 for (int rankId = 0; rankId < rankListT.size(); rankId++) { 
                     rankList.add(rankListT.get(rankId));
@@ -87,9 +88,11 @@ public class Score {
                 for (int weightId = 0; weightId < rankListT.size(); weightId++) { 
                     weightList.add(0.0);
                 }
+                System.out.println("update weight list with size: " + weightList.size());
             }
             List<Denotator> scoreDenoList = new ArrayList<Denotator>();
             if (rankListT != null && !rankListT.isEmpty()) {
+                System.out.println("into ranklistT != null");
                 for (int i = 0; i < rankListT.size(); i++) {
                     if (mode == Status.CopyMode.NOCOPY) {
                         scoreDenoList.add(scorerDeno.getFactor(rankListT.get(i)));
@@ -99,6 +102,7 @@ public class Score {
                 }
                 scoreDeno = new PowerDenotator(NameDenotator.make("scoreDeno"), scoreForm, scoreDenoList);
             } else {
+                System.out.println("into ranklistT == null");
                 if (mode == Status.CopyMode.NOCOPY) {
                     scoreDeno = scorerDeno; 
                 } else {
@@ -109,37 +113,27 @@ public class Score {
             e.printStackTrace();
         }
     }
-    public Score(Denotator scorerDenoGen,List<Integer> rankList, boolean ifRev) {
-        this(scorerDenoGen, rankList, ifRev, Status.CopyMode.NOCOPY);
-    }
-    public Score(Denotator scoreDenoGen, boolean ifRev, Status.CopyMode mode) {
-        this(scoreDenoGen, new ArrayList<Integer>(), ifRev, mode);
-    }
-    public Score(Denotator scoreDenoGen, boolean ifRev) {
-        this(scoreDenoGen, new ArrayList<Integer>(), ifRev, Status.CopyMode.NOCOPY);
+    public Score(Denotator scorerDenoGen, List<Integer> rankList) {
+        this(scorerDenoGen, rankList, Status.CopyMode.NOCOPY);
     }
     public Score(Denotator scoreDenoGen, Status.CopyMode mode) {
-        this(scoreDenoGen, false, mode);
+        this(scoreDenoGen, new ArrayList<Integer>(), mode);
+        //if (mode == Status.CopyMode.NOCOPY) {
+        //    //scoreDeno = (PowerDenotator)scoreDenoGen;
+        //} else {
+        //    this(scoreDenoGen, null, mode);
+        //    //scoreDeno = (PowerDenotator)Score.copy(scoreDenoGen).toDeno();
+        //}
     }
     public Score(Denotator scoreDenoGen) {
-        this(scoreDenoGen, false, Status.CopyMode.NOCOPY);
+        this(scoreDenoGen, Status.CopyMode.NOCOPY);
     }
-    public Score(List<Note> noteList, List<Integer> rankListT, boolean ifRevT) {
+    public Score(List<Note> noteList, List<Integer> rankList) {
+        System.out.println("Score 7");
         genForm();
-        rankList = new ArrayList<Integer>();
-        if (rankListT == null || rankListT.isEmpty() || rankListT.get(0) == -1) {
-            ifMotif = false; 
-            for (int rankId = 0; rankId < rankListT.size(); rankId++) { 
-                rankList.add(-1);
-            }
-        } else {
-            ifMotif = true;
-            for (int rankId = 0; rankId < rankListT.size(); rankId++) { 
-                rankList.add(rankListT.get(rankId));
-            }
-        }
-        ifRev = ifRevT;
+        ifMotif = true;
         if (noteList.size() == 0) return;
+        this.rankList = rankList;
         weightList = new ArrayList<Double>();
         for (int weightId = 0; weightId < noteList.size(); weightId++) {
             weightList.add(0.0);
@@ -150,8 +144,7 @@ public class Score {
         }
         try {
             scoreDeno = new PowerDenotator(NameDenotator.make("scoreDeno"), scoreForm, scoreDenoList);
-        } catch (RubatoException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
         }
     }
     static public Score copy(Denotator scoreDenoGen) {
@@ -159,12 +152,11 @@ public class Score {
             PowerDenotator scoreDeno = (PowerDenotator)scoreDenoGen;
             return new Score(scoreDeno.copy());
         } catch (Exception e) {
-            e.printStackTrace();
         }
         return null;
     }
     public Score copy() {
-        return new Score(scoreDeno.copy(), ifRev);
+        return new Score(scoreDeno.copy());
     }
     /**********************BASIC END***************************/
 
@@ -242,7 +234,7 @@ public class Score {
         return ifMotif;
     }
     public static Score getEmptyScore() {
-        return new Score(new ArrayList<Note>(), null, false);
+        return new Score(new ArrayList<Note>(), null);
     }
     public int getRank(int index) {
         try {
@@ -250,12 +242,8 @@ public class Score {
                 throw new Exception("wrong index");
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
         return rankList.get(index);
-    }
-    public boolean getIfRev() {
-        return ifRev;
     }
     /*********************Property END**********************/
 
@@ -270,7 +258,6 @@ public class Score {
                 throw new Exception("wrong index");
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
         Note note = new Note(scoreDeno.getFactor(index));
         return note.getOnset();
@@ -281,7 +268,6 @@ public class Score {
                 throw new Exception("wrong index");
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
         Note note = new Note(scoreDeno.getFactor(index));
         return note.getPitch();
@@ -292,7 +278,6 @@ public class Score {
                 throw new Exception("wrong index");
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
         Note note = new Note(scoreDeno.getFactor(index));
         return note.getLoudness();
@@ -303,7 +288,6 @@ public class Score {
                 throw new Exception("wrong index");
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
         Note note = new Note(scoreDeno.getFactor(index));
         return note.getDuration();
@@ -324,7 +308,6 @@ public class Score {
                 throw new Exception("wrong index");
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
         Note note = new Note(scoreDeno.getFactor(index));
         note.setOnset(onset);
@@ -335,7 +318,6 @@ public class Score {
                 throw new Exception("wrong index");
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
         Note note = new Note(scoreDeno.getFactor(index));
         note.setPitch(pitch);
@@ -346,7 +328,6 @@ public class Score {
                 throw new Exception("wrong index");
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
         Note note = new Note(scoreDeno.getFactor(index));
         note.setLoudness(loudness);
@@ -357,7 +338,6 @@ public class Score {
                 throw new Exception("wrong index");
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
         Note note = new Note(scoreDeno.getFactor(index));
         note.setDuration(duration);
@@ -368,7 +348,6 @@ public class Score {
                 throw new Exception("wrong index");
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
         Note note = new Note(scoreDeno.getFactor(index));
         note.setVoice(voice);
@@ -379,7 +358,6 @@ public class Score {
                 throw new Exception("wrong index");
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
         Note note = new Note(scoreDeno.getFactor(index));
         note.setOnset(onsetDeno);
@@ -390,7 +368,6 @@ public class Score {
                 throw new Exception("wrong index");
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
         Note note = new Note(scoreDeno.getFactor(index));
         note.setPitch(pitchDeno);
@@ -401,7 +378,6 @@ public class Score {
                 throw new Exception("wrong index");
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
         Note note = new Note(scoreDeno.getFactor(index));
         note.setLoudness(loudnessDeno);
@@ -412,7 +388,6 @@ public class Score {
                 throw new Exception("wrong index");
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
         Note note = new Note(scoreDeno.getFactor(index));
         note.setDuration(durationDeno);
@@ -423,7 +398,6 @@ public class Score {
                 throw new Exception("wrong index");
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
         Note note = new Note(scoreDeno.getFactor(index));
         note.setVoice(voiceDeno);
@@ -448,25 +422,40 @@ public class Score {
         for (int noteId = 0; noteId < scoreDeno.getFactorCount(); noteId++) {
             Note note = new Note(scoreDeno.getFactor(noteId));
             note.print();
-            if (!ifMotif) {
-                System.out.println("note weight: " + getWeight(noteId));
-            }
             if (ifMotif) {
                 System.out.println("note rank: " + rankList.get(noteId));
             }
-            if (ifRev) {
-                System.out.println("reverted score");
-            }
         }
         if (ifMotif) {
-            System.out.println("Motif Weight: " + getTotalWeight());
+            System.out.println("Motif Weight: " + totalWeight);
         }
         System.out.println();
     }
 
     /**********************Vari START*****************/
     private double getPitchForInv() {
-        return 63.5;
+        int len = scoreDeno.getFactorCount();
+        if (len == 0) return -1;
+        double pitchMax = 0;
+        double pitchMin = 128;
+        double pitchSum = 0;
+        for (int i = 0; i < len; i++) {
+            Note now = new Note(scoreDeno.getFactor(i));
+            double pitchNow = now.getPitch();
+            if (pitchNow > pitchMax) {
+                pitchMax = pitchNow;
+            }
+            if (pitchNow < pitchMin) {
+                pitchMin = pitchNow;
+            }
+            pitchSum += pitchNow;
+        }
+        double pitchAverage = pitchSum / len;
+        double pitchLow = (pitchMax+2)/2;
+        double pitchHigh = (127+pitchMin)/2;
+        double pitchChoice = Math.max((pitchMax+2)/2, pitchAverage);
+        pitchChoice = Math.min(pitchAverage, pitchHigh);
+        return pitchChoice;
     }
     //inv at the middle
     public void inv() {
@@ -485,7 +474,6 @@ public class Score {
         inv(pitchDeno.getRational().doubleValue());
     }
     public void retro() {
-        ifRev = !ifRev;
         int len = scoreDeno.getFactorCount();
         if (len == 0) return;
         Note lastNote = new Note(scoreDeno.getFactor(len-1));
@@ -496,15 +484,12 @@ public class Score {
             double timeNew = timeTotal-timeEnding;
             now.setOnset(timeNew);
         }
-        //swap note to remain order
         for (int i = 0; i < len / 2; i++) {
             Denotator noteDeno = scoreDeno.getFactor(i);
             try {
                 scoreDeno.setFactor(i, scoreDeno.getFactor(len-1-i));
                 scoreDeno.setFactor(len-1-i, noteDeno);
-            } catch (RubatoException e) {
-                e.printStackTrace();
-            }
+            } catch (Exception e) {}
         }
     }
     public void retroInv(double pitch) {
@@ -526,14 +511,12 @@ public class Score {
             now.setOnset(timeNew);
             noteList.add(now);
         }
-        //swap note to remain order
-        boolean newIfRev = !ifRev;
         for (int i = 0; i < len / 2; i++) {
             Note temp = noteList.get(i);
             noteList.set(i, noteList.get(len-1-i));
-            noteList.set(len-1-i, temp);
+            noteList.set(len-1-i, noteList.get(i));
         }
-        return new Score(noteList, rankList, newIfRev);
+        return new Score(noteList, rankList);
     }
 
     public Score getInv() {
@@ -549,7 +532,7 @@ public class Score {
             now.setPitch(pitch*2-now.getPitch());
             noteList.add(now);
         }
-        return new Score(noteList, rankList, ifRev);
+        return new Score(noteList, rankList);
     }
     public Score getInv(Denotator pitchDenoGen) {
         SimpleDenotator pitchDeno = (SimpleDenotator)pitchDenoGen;

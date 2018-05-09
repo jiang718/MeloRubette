@@ -14,8 +14,7 @@
  * Boston, MA 02111-1307, USA.
  * */
 
-package melo;
-
+package melo; 
 import org.rubato.base.*;
 import org.rubato.math.yoneda.*;
 import org.rubato.composer.RunInfo;
@@ -37,7 +36,6 @@ import org.rubato.base.RubatoException;
 
 public class Note {
     private LimitDenotator noteDeno;
-
     static public Note copy(Denotator noteDeno) {
         try {
             LimitDenotator limitNoteDeno = (LimitDenotator)noteDeno;
@@ -46,16 +44,17 @@ public class Note {
         }
         return null;
     }
-
     public Note copy() {
         return new Note(noteDeno.copy());
     }
-
+    public Note(Note note) {
+        this(note.toDeno());
+    }
     public Note(Denotator noteDeno, Status.CopyMode mode) {
         if (mode == Status.CopyMode.NOCOPY) {
             this.noteDeno = (LimitDenotator)noteDeno;
         } else {
-            this.noteDeno = (LimitDenotator)(Note.copy(noteDeno).toDenotator());
+            this.noteDeno = (LimitDenotator)(Note.copy(noteDeno).toDeno());
         }
     }
     public Note(Denotator noteDeno) {
@@ -146,14 +145,13 @@ public class Note {
         } catch (Exception e) {
         }
     }
-    public Denotator toDenotator() {
+    public Denotator toDeno() {
         return noteDeno;
     }
     public void printLong() {
         System.out.println("Onset: " + getOnset() + " Pitch: " + getPitch() + " Loudness: " + getLoudness() + " duration: " + getDuration() + " voice: " + getVoice());
     }
-
     public void print() {
-        System.out.println(String.format("Onset: %.2f", getOnset()) + String.format(" Pitch: %d", (int)getPitch()));
+        System.out.println(String.format("Onset: %.2f", getOnset()) + String.format(" Pitch: %d", (int)getPitch()) + String.format(" Duration: %.2f", getDuration()));
     }
 }
