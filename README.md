@@ -5,11 +5,9 @@ First download and install rubato software from http://www.rubato.org/rubatocomp
 Clone this folder inside rubato folder. <br/>
 To Run in Rubato<br/>
 ```
-make clean
-make
+bash generateRubette
 ```
 To only compile<br/>
 ```
-make clean
-make compile
+bash compileRubette
 ```
