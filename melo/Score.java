@@ -1,19 +1,3 @@
-/*
- * Copyright (C) 2012 Florian Thalmann *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of version 2 of the GNU General Public
- * License as published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
- *
- * You should have received a copy of the GNU General Public
- * License along with this program; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
- * Boston, MA 02111-1307, USA.
- * */
 package melo;
 import java.util.*;
 
@@ -38,7 +22,6 @@ import org.rubato.logeo.FormFactory;
  */
 
 public class Score {
-
     protected PowerDenotator scoreDeno;
 
     protected List<Integer> rankList;
@@ -431,38 +414,6 @@ public class Score {
     /************Property(note related) END********************/
 
 
-    public void printLong() {
-        System.out.println("Score/Motif Length : " + size());
-        for (int i = 0; i < scoreDeno.getFactorCount(); i++) {
-            Note note = new Note(scoreDeno.getFactor(i));
-            note.printLong();
-        }
-        System.out.println();
-    }
-    public void print() {
-        if (ifMotif) {
-            System.out.println("Motif Length : " + size());
-        } else {
-            System.out.println("Score Length : " + size());
-        }
-        for (int noteId = 0; noteId < scoreDeno.getFactorCount(); noteId++) {
-            Note note = new Note(scoreDeno.getFactor(noteId));
-            note.print();
-            if (!ifMotif) {
-                System.out.println("note weight: " + getWeight(noteId));
-            }
-            if (ifMotif) {
-                System.out.println("note rank: " + rankList.get(noteId));
-            }
-            if (ifRev) {
-                System.out.println("reverted score");
-            }
-        }
-        if (ifMotif) {
-            System.out.println("Motif Weight: " + getTotalWeight());
-        }
-        System.out.println();
-    }
 
     /**********************Vari START*****************/
     private double getPitchForInv() {
@@ -535,11 +486,9 @@ public class Score {
         }
         return new Score(noteList, rankList, newIfRev);
     }
-
     public Score getInv() {
         return getInv(getPitchForInv());
     }
-
     public Score getInv(double pitch) {
         int len = scoreDeno.getFactorCount();
         if (len == 0) return Score.getEmptyScore();
@@ -584,14 +533,46 @@ public class Score {
         }
         return weightList.get(index);
     }
-
     public double getTotalWeight() {
         return totalWeight;
     }
-
-
     public void setTotalWeight(double totalWeightT) {
         totalWeight = totalWeightT; 
     }
     /*********************Target END*************/
+
+    /*********************Debugging START********/
+    public void printLong() {
+        System.out.println("Score/Motif Length : " + size());
+        for (int i = 0; i < scoreDeno.getFactorCount(); i++) {
+            Note note = new Note(scoreDeno.getFactor(i));
+            note.printLong();
+        }
+        System.out.println();
+    }
+    public void print() {
+        if (ifMotif) {
+            System.out.println("Motif Length : " + size());
+        } else {
+            System.out.println("Score Length : " + size());
+        }
+        for (int noteId = 0; noteId < scoreDeno.getFactorCount(); noteId++) {
+            Note note = new Note(scoreDeno.getFactor(noteId));
+            note.print();
+            if (!ifMotif) {
+                System.out.println("note weight: " + getWeight(noteId));
+            }
+            if (ifMotif) {
+                System.out.println("note rank: " + rankList.get(noteId));
+            }
+            if (ifRev) {
+                System.out.println("reverted score");
+            }
+        }
+        if (ifMotif) {
+            System.out.println("Motif Weight: " + getTotalWeight());
+        }
+        System.out.println();
+    }
+    /*********************Debugging END**********/
 }

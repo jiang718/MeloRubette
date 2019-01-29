@@ -1,18 +1,3 @@
-/*
- * Copyright (C) 2012 Florian Thalmann *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of version 2 of the GNU General Public
- * License as published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
- *
- * You should have received a copy of the GNU General Public
- * License along with this program; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
- * Boston, MA 02111-1307, USA.
- * */
 
 package melo; 
 import org.rubato.base.*;
@@ -23,7 +8,6 @@ import org.rubato.math.module.QElement;
 import org.rubato.math.module.ZElement;
 import org.rubato.math.module.RElement;
 import org.rubato.math.arith.Rational;
-//import org.rubato.rubettes.util.NoteGenerator;
 import org.rubato.math.yoneda.SimpleDenotator;
 import org.rubato.math.yoneda.LimitDenotator;
 import org.rubato.math.module.DomainException;
@@ -32,6 +16,7 @@ import org.rubato.base.RubatoException;
 
 /**
  * @author Mijia Jiang 
+ * This is manager class for a single note
  */
 
 public class Note {

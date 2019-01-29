@@ -64,7 +64,7 @@ public class MeloRubette extends SimpleAbstractRubette {
     //UI Input
     private boolean ifInv = false, ifRetro = false, ifRetroInv = false;
     private int noteLimit = 1;
-    private double span = 5;
+    private double span = 1;
     private int shapeSelec = 0;
     private double neighbour = 5;
     private boolean ifNoteLimitChanged = false, ifSpanChanged = false;
@@ -150,26 +150,26 @@ public class MeloRubette extends SimpleAbstractRubette {
             System.out.println("Run rubato to set score first");
         } else {
             System.out.println("Calculatint the weight...");
-            if (ifNoteLimitChanged || ifSpanChanged) {
-                System.out.println("Note limit or span changed...");
-                motifManager = new MotifManager(scoreDeno, noteLimit, span); 
-                motifManager.calWeight(ifInv, ifRetro, ifRetroInv, shapeSelec, neighbour);
-                ifNoteLimitChanged = false;
-                ifSpanChanged = false;
-                ifVariChanged = false;
-                ifNeighbourChanged = false;
-            } else if (ifVariChanged || ifShapeSelecChanged) {
-                System.out.println("vari changed...");
-                motifManager.resetVariAndShape(ifInv, ifRetro, ifRetroInv, shapeSelec);
-                ifVariChanged = false;
-                ifNeighbourChanged = false;
-            } else if (ifNeighbourChanged) {
-                System.out.println("neighbour changed...");
-                motifManager.resetNeighbour(neighbour);
-                ifNeighbourChanged = false;
-            } else {
-                System.out.println("no thing changed...");
-            }
+            motifManager = new MotifManager(scoreDeno, noteLimit, span); 
+            motifManager.calWeight(ifInv, ifRetro, ifRetroInv, shapeSelec, neighbour);
+            //if (ifNoteLimitChanged || ifSpanChanged) {
+            //    System.out.println("Note limit or span changed...");
+            //    ifNoteLimitChanged = false;
+            //    ifSpanChanged = false;
+            //    ifVariChanged = false;
+            //    ifNeighbourChanged = false;
+            //} else if (ifVariChanged || ifShapeSelecChanged) {
+            //    System.out.println("vari changed...");
+            //    motifManager.resetVariAndShape(ifInv, ifRetro, ifRetroInv, shapeSelec);
+            //    ifVariChanged = false;
+            //    ifNeighbourChanged = false;
+            //} else if (ifNeighbourChanged) {
+            //    System.out.println("neighbour changed...");
+            //    motifManager.resetNeighbour(neighbour);
+            //    ifNeighbourChanged = false;
+            //} else {
+            //    System.out.println("no thing changed...");
+            //}
             motifManager.print();
             updateOutput();
         }
@@ -202,6 +202,7 @@ public class MeloRubette extends SimpleAbstractRubette {
             scoreDenoPrev = scoreDeno;
             scoreDeno = (PowerDenotator)getInput(0);
             score = new Score(scoreDeno);
+            //calWeight();
             updateOutput();
         }
     }

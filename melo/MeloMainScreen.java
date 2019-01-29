@@ -40,7 +40,6 @@ public class MeloMainScreen extends javax.swing.JPanel {
         }
         return 100;
     }
-
     public double getSpan() {
         try {
             double span = Double.parseDouble(spanTextField.getText());
@@ -49,6 +48,7 @@ public class MeloMainScreen extends javax.swing.JPanel {
         }
         return 1;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
