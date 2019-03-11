@@ -414,9 +414,6 @@ class Shape {
 
 
 class ShapeManager {
-    SimpleForm onsetForm;
-    SimpleForm weightForm;
-    LimitForm weightedOnsetForm;
     PowerForm weightedOnsetListForm; 
 
     protected Score score;
@@ -429,7 +426,7 @@ class ShapeManager {
     protected List<List<List<Shape>>> variShapeLib;
     protected double[][][][] variDisMinLib;
     protected double[][][] disMinLib;
-    protected List<List<Double>> weightedOnsetList;
+    protected List<WeightedOnset> weightedOnsetList;
     //protected boolean[] hasCalDis;
 
     public ShapeManager(Score scoreT, List<List<List<Score>>> variMotifLibT, boolean[] variSelecT, int shapeSelecT, double neighbourT) {
@@ -633,39 +630,34 @@ class ShapeManager {
     }
 
     void genForm() {
-        onsetForm = (SimpleForm)Repository.systemRepository().getForm("Onset");
-        weightForm = (SimpleForm)Repository.systemRepository().getForm("Real");
-        List<Form> weightedOnsetFormList = new LinkedList<Form>();
-        List<String> weightedOnsetFormLabelList = new LinkedList<String>();
-        weightedOnsetFormList.add(onsetForm);
-        weightedOnsetFormList.add(weightForm);
-        weightedOnsetFormLabelList.add("onset");
-        weightedOnsetFormLabelList.add("weight");
-        weightedOnsetForm = FormFactory.makeLimitForm("weightedOnset", weightedOnsetFormList);
-        weightedOnsetForm.setLabels(weightedOnsetFormLabelList);
-        weightedOnsetListForm = FormFactory.makePowerForm("weightedOnsetList", weightedOnsetForm); 
+        weightedOnsetListForm = FormFactory.makePowerForm("weightedOnsetList", new WeightedOnset().getForm()); 
     }
 
     void calWeightedOnsetList(Score score) {
         //onset //weight
-        weightedOnsetList = new ArrayList<List<Double>>();
+        weightedOnsetList = new ArrayList<WeightedOnset>();
         double onsetPrev = -1;
         for (int noteId = 0; noteId < score.size(); noteId++) {
             double onsetNow = score.getOnset(noteId);
             if (onsetNow == onsetPrev) {
                 int index = weightedOnsetList.size()-1;
-                List<Double> weightedOnset = weightedOnsetList.get(index);
-                double weight = weightedOnset.get(1) + score.getWeight(noteId);
-                weightedOnset.set(1, weight);
+                WeightedOnset weightedOnset = weightedOnsetList.get(index);
+                double weight = weightedOnset.getWeight() + score.getWeight(noteId);
+                weightedOnset.setWeight(weight);
             } else {
                 double weight = score.getWeight(noteId);
-                List<Double> weightedOnset = new ArrayList<Double>();
-                weightedOnset.add(onsetNow);
-                weightedOnset.add(weight);
+                WeightedOnset weightedOnset = new WeightedOnset(onsetNow, weight); 
                 weightedOnsetList.add(weightedOnset);
             }
             onsetPrev = onsetNow;
         }
+    }
+
+    List<WeightedOnset> toWeighedOnsetList() {
+        if (weightedOnsetList == null || weightedOnsetList.isEmpty()) {
+            return null;
+        }
+        return weightedOnsetList;
     }
 
     Denotator toWeightedOnsetListDeno() {
@@ -675,16 +667,10 @@ class ShapeManager {
         try {
             List<Denotator> weightedOnsetListDenoList = new ArrayList<Denotator>();
             for (int weightedOnsetId = 0; weightedOnsetId < weightedOnsetList.size(); weightedOnsetId++) {
-                List<Double> weightedOnset = weightedOnsetList.get(weightedOnsetId);
-                System.out.println("onset: " + weightedOnset.get(0));
-                System.out.println("weight: " + weightedOnset.get(1));
+                WeightedOnset weightedOnset = weightedOnsetList.get(weightedOnsetId);
+                weightedOnset.print();
                 List<Denotator> weightedOnsetDenoList = new ArrayList<Denotator>();
-                SimpleDenotator onsetDeno = new SimpleDenotator(NameDenotator.make("onsetDeno"), onsetForm, new RElement(weightedOnset.get(0)));
-                SimpleDenotator weightDeno = new SimpleDenotator(NameDenotator.make("weightDeno"), weightForm, new RElement(weightedOnset.get(1)));
-                weightedOnsetDenoList.add(onsetDeno);
-                weightedOnsetDenoList.add(weightDeno);
-                LimitDenotator weightedOnsetDeno = new LimitDenotator(NameDenotator.make("weightedOnsetDeno"), weightedOnsetForm, weightedOnsetDenoList);
-                weightedOnsetListDenoList.add(weightedOnsetDeno);
+                weightedOnsetListDenoList.add(weightedOnset.toDeno());
             }
             PowerDenotator weightedOnsetListDeno = new PowerDenotator(NameDenotator.make("weightedOnsetListDeno"), weightedOnsetListForm, weightedOnsetListDenoList);
             return weightedOnsetListDeno;
@@ -955,6 +941,12 @@ public class MotifManager {
         weightedScoreForm = FormFactory.makePowerForm("weightedScoreForm", weightedNoteForm);
     }
 
+    List<WeightedOnset> toWeighedOnsetList() {
+        if (shapeManagerList == null || shapeManagerList.get(shapeSelec) == null) {
+            return null;
+        }
+        return shapeManagerList.get(shapeSelec).toWeightedOnsetList();
+    }
     public Denotator toWeightedOnsetListDeno() {
         if (shapeManagerList == null || shapeManagerList.get(shapeSelec) == null) {
             return null;
