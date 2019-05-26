@@ -83,7 +83,8 @@ public class MeloMainScreen extends javax.swing.JPanel {
                                 .addComponent(noteLimitLabel)
                                 .addGap(101, 101, 101)
                                 .addComponent(noteLimitTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(viewResultBtn))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(variLabel)
@@ -96,8 +97,8 @@ public class MeloMainScreen extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(shapeSelecLabel)
                                 .addGap(42, 42, 42)
-                                .addComponent(shapeSelecComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(113, 113, 113))))
+                                .addComponent(shapeSelecComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(113, 113, 113))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,7 +132,8 @@ public class MeloMainScreen extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(neighbourLabel)
-                    .addComponent(neighbourTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(neighbourTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+					.addComponent(viewResultBtn))
                 .addGap(32, 32, 32))
         );
     }
@@ -240,6 +242,9 @@ public class MeloMainScreen extends javax.swing.JPanel {
                     System.out.println("before cal weight neighbour:" + neighbour);
 
                     meloRubette.calWeight(noteLimit, span, neighbour);
+
+                    viewResultBtn.setOpaque(true);
+                    viewResultBtn.setEnabled(true);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -262,18 +267,17 @@ public class MeloMainScreen extends javax.swing.JPanel {
             }
         }); 
 
+        viewResultBtn = new javax.swing.JButton();
+        viewResultBtn.setText("view result");
+        viewResultBtn.setEnabled(false);
+        viewResultBtn.setOpaque(false);
+        viewResultBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            }
+        });
+
         initLayout();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void calWeightBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calWeightBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_calWeightBtnActionPerformed
-
-    private void neighbourTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_neighbourTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_neighbourTextFieldActionPerformed
-
-
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -291,5 +295,6 @@ public class MeloMainScreen extends javax.swing.JPanel {
     private javax.swing.JLabel spanLabel;
     private javax.swing.JTextField spanTextField;
     private javax.swing.JLabel variLabel;
+    private javax.swing.JButton viewResultBtn;
     // End of variables declaration//GEN-END:variables
 }
