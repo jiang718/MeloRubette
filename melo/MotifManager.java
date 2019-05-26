@@ -653,7 +653,7 @@ class ShapeManager {
         }
     }
 
-    List<WeightedOnset> toWeighedOnsetList() {
+    List<WeightedOnset> toWeightedOnsetList() {
         if (weightedOnsetList == null || weightedOnsetList.isEmpty()) {
             return null;
         }
