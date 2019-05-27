@@ -5,15 +5,14 @@
  */
 package melo;
 
-import javax.swing.JFrame;
 import java.awt.*;
 import java.awt.event.*;
-
-/**
- *
+import javax.swing.*;
+import javax.swing.text.*;
+/** *
  * @author nil
  */
-public class MeloMainScreen extends javax.swing.JPanel {
+public class MeloMainScreen extends JPanel {
 
     /**
      * Creates new form MeloDisplay
@@ -58,58 +57,58 @@ public class MeloMainScreen extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     //
     private void initLayout() {
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(111, 111, 111)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, 400, GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 160, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                     .addComponent(neighbourLabel)
                                     .addComponent(spanLabel))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(spanTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(neighbourTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                    .addComponent(spanTextField, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 234, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(neighbourTextField, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 234, GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(noteLimitLabel)
                                 .addGap(101, 101, 101)
-                                .addComponent(noteLimitTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(noteLimitTextField, GroupLayout.PREFERRED_SIZE, 234, GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(viewResultBtn))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addComponent(variLabel)
                             .addComponent(invCheckBox)
                             .addComponent(retroCheckBox)
                             .addComponent(retroInvCheckBox))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                             .addComponent(calWeightBtn)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(shapeSelecLabel)
                                 .addGap(42, 42, 42)
-                                .addComponent(shapeSelecComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(shapeSelecComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
                 .addGap(113, 113, 113))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addComponent(variLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(shapeSelecComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(shapeSelecComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addComponent(shapeSelecLabel))
                         .addGap(18, 18, 18)
                         .addComponent(calWeightBtn))
@@ -119,28 +118,28 @@ public class MeloMainScreen extends javax.swing.JPanel {
                         .addComponent(retroCheckBox)
                         .addGap(18, 18, 18)
                         .addComponent(retroInvCheckBox)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                     .addComponent(noteLimitLabel)
-                    .addComponent(noteLimitTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(noteLimitTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(spanLabel)
-                    .addComponent(spanTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(spanTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(neighbourLabel)
-                    .addComponent(neighbourTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(neighbourTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addComponent(viewResultBtn))
                 .addGap(32, 32, 32))
         );
     }
 
     private void initComponents() {
-        variLabel = new javax.swing.JLabel();
-        invCheckBox = new javax.swing.JCheckBox();
+        variLabel = new JLabel();
+        invCheckBox = new JCheckBox();
         invCheckBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -151,7 +150,7 @@ public class MeloMainScreen extends javax.swing.JPanel {
                 };
             }
         });
-        retroCheckBox = new javax.swing.JCheckBox();
+        retroCheckBox = new JCheckBox();
         retroCheckBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -162,7 +161,7 @@ public class MeloMainScreen extends javax.swing.JPanel {
                 };
             }
         });
-        retroInvCheckBox = new javax.swing.JCheckBox();
+        retroInvCheckBox = new JCheckBox();
         retroInvCheckBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -178,9 +177,9 @@ public class MeloMainScreen extends javax.swing.JPanel {
         retroCheckBox.setText("retrograde");
         retroInvCheckBox.setText("retro-inversion");
 
-        noteLimitLabel = new javax.swing.JLabel();
+        noteLimitLabel = new JLabel();
         noteLimitLabel.setText("note's limit");
-        noteLimitTextField = new javax.swing.JTextField();
+        noteLimitTextField = new JTextField();
         //noteLimitTextField.setMinimum(0);
         //noteLimitTextField.setMaximum(5);
         noteLimitTextField.addActionListener(new ActionListener() {
@@ -194,12 +193,12 @@ public class MeloMainScreen extends javax.swing.JPanel {
             }
         });
 
-        spanLabel = new javax.swing.JLabel();
+        spanLabel = new JLabel();
         spanLabel.setText("span");
-        spanTextField = new javax.swing.JTextField();
+        spanTextField = new JTextField();
         //spanTextField.setMinimum(0);
         //spanTextField.setMaximum(5);
-        spanTextField.addActionListener(new java.awt.event.ActionListener() {
+        spanTextField.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 try {
                     double span = Double.parseDouble(spanTextField.getText());
@@ -211,23 +210,23 @@ public class MeloMainScreen extends javax.swing.JPanel {
         });
 
 
-        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator1 = new JSeparator();
 
         
-        shapeSelecLabel = new javax.swing.JLabel();
+        shapeSelecLabel = new JLabel();
         shapeSelecLabel.setText("shape");
-        shapeSelecComboBox = new javax.swing.JComboBox<>();
-        shapeSelecComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "rigid", "diastematic", "elastic" }));
-        shapeSelecComboBox.addActionListener(new java.awt.event.ActionListener() {
+        shapeSelecComboBox = new JComboBox<>();
+        shapeSelecComboBox.setModel(new DefaultComboBoxModel<>(new String[] { "rigid", "diastematic", "elastic" }));
+        shapeSelecComboBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 meloRubette.setShapeSelec(shapeSelecComboBox.getSelectedIndex());
             }
         });
 
-        calWeightBtn = new javax.swing.JButton();
+        calWeightBtn = new JButton();
         calWeightBtn.setText("calculate weight");
-        calWeightBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        calWeightBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 try {
                     int noteLimit = Integer.parseInt(noteLimitTextField.getText());
                     meloRubette.setNoteLimit(noteLimit);
@@ -251,12 +250,12 @@ public class MeloMainScreen extends javax.swing.JPanel {
             }
         });
 
-        neighbourLabel = new javax.swing.JLabel();
+        neighbourLabel = new JLabel();
         neighbourLabel.setText("neighbour");
-        neighbourTextField = new javax.swing.JTextField();
+        neighbourTextField = new JTextField();
         //neighbourTextField.setMinimum(0);
         //neighbourTextField.setMaximum(5);
-        neighbourTextField.addActionListener(new java.awt.event.ActionListener() {
+        neighbourTextField.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 try {
                     double neighbour = Double.parseDouble(neighbourTextField.getText());
@@ -267,34 +266,119 @@ public class MeloMainScreen extends javax.swing.JPanel {
             }
         }); 
 
-        viewResultBtn = new javax.swing.JButton();
+        viewResultBtn = new JButton();
         viewResultBtn.setText("view result");
-        viewResultBtn.setEnabled(false);
-        viewResultBtn.setOpaque(false);
-        viewResultBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        //viewResultBtn.setEnabled(false);
+        //viewResultBtn.setOpaque(false);
+        viewResultBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                try {
+				    createResultScreen();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 
         initLayout();
     }// </editor-fold>//GEN-END:initComponents
     
+	public void createResultScreen()
+		{
+			EventQueue.invokeLater(new Runnable()
+			{
+				@Override
+				public void run()
+				{
+					JFrame frame = new JFrame("Result");
+					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					try 
+					{
+					   UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+					} catch (Exception e) {
+					   e.printStackTrace();
+					}
+
+                     
+
+					//JPanel panel = new JPanel();
+					//panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+					//panel.setOpaque(true);
+					//JTextArea textArea = new JTextArea(15, 50);
+					//textArea.setWrapStyleWord(true);
+					//textArea.setEditable(false);
+					//JScrollPane scroller = new JScrollPane(textArea);
+					//scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+					//scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+					//JPanel inputpanel = new JPanel();
+					//inputpanel.setLayout(new FlowLayout());
+					//JTextField input = new JTextField(20);
+					//JButton button = new JButton("Enter");
+					//DefaultCaret caret = (DefaultCaret) textArea.getCaret();
+					//caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+					//panel.add(scroller);
+					//inputpanel.add(input);
+					//inputpanel.add(button);
+					//panel.add(inputpanel);
+
+					//JPanel panel2 = new JPanel();
+					//panel2.setLayout(new BoxLayout(panel2, BoxLayout.Y_AXIS));
+					//panel2.setOpaque(true);
+					//JTextArea textArea2 = new JTextArea(15, 50);
+					//textArea2.setWrapStyleWord(true);
+					//textArea2.setEditable(false);
+					//JScrollPane scroller2 = new JScrollPane(textArea2);
+					//scroller2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+					//scroller2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+					//JPanel inputpanel2 = new JPanel();
+					//inputpanel2.setLayout(new FlowLayout());
+					//JTextField input2 = new JTextField(20);
+					//JButton button2 = new JButton("Enter");
+					//DefaultCaret caret2 = (DefaultCaret) textArea2.getCaret();
+					//caret2.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+					//panel2.add(scroller2);
+					//inputpanel2.add(input2);
+					//inputpanel2.add(button2);
+					//panel2.add(inputpanel2);
+
+                    //JPanel viewResultPanel = new JPanel(); 
+					//viewResultPanel.setLayout(new BoxLayout(viewResultPanel, BoxLayout.Y_AXIS));
+                    //viewResultPanel.setOpaque(true);
+                    //viewResultPanel.add(panel);
+                    //viewResultPanel.add(panel2);
+                    
+                    viewResultScreen = new ViewResultScreen(meloRubette);
+
+					frame.getContentPane().add(BorderLayout.CENTER, viewResultScreen);
+					frame.pack();
+					frame.setLocationByPlatform(true);
+					frame.setVisible(true);
+					frame.setResizable(false);
+					viewResultScreen.requestFocus();
+				}
+			});
+		}
+
+
     
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton calWeightBtn;
-    private javax.swing.JCheckBox invCheckBox;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel neighbourLabel;
-    private javax.swing.JTextField neighbourTextField;
-    private javax.swing.JLabel noteLimitLabel;
-    private javax.swing.JTextField noteLimitTextField;
-    private javax.swing.JCheckBox retroCheckBox;
-    private javax.swing.JCheckBox retroInvCheckBox;
-    private javax.swing.JComboBox<String> shapeSelecComboBox;
-    private javax.swing.JLabel shapeSelecLabel;
-    private javax.swing.JLabel spanLabel;
-    private javax.swing.JTextField spanTextField;
-    private javax.swing.JLabel variLabel;
-    private javax.swing.JButton viewResultBtn;
+    private JButton calWeightBtn;
+    private JCheckBox invCheckBox;
+    private JSeparator jSeparator1;
+    private JLabel neighbourLabel;
+    private JTextField neighbourTextField;
+    private JLabel noteLimitLabel;
+    private JTextField noteLimitTextField;
+    private JCheckBox retroCheckBox;
+    private JCheckBox retroInvCheckBox;
+    private JComboBox<String> shapeSelecComboBox;
+    private JLabel shapeSelecLabel;
+    private JLabel spanLabel;
+    private JTextField spanTextField;
+    private JLabel variLabel;
+    private JButton viewResultBtn;
+
+    private ViewResultScreen viewResultScreen;
     // End of variables declaration//GEN-END:variables
+    //
 }
+
