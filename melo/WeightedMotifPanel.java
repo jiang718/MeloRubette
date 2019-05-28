@@ -31,32 +31,31 @@ public class WeightedMotifPanel extends SingleResultPanel {
 
     private void initComponents() {
         motifLib = meloRubette.getMotifLib();
+
         JPanel contentPanel = new JPanel();
         contentPanel.setLayout(new FlowLayout());
 
         motifLibPanel = new JPanel();
         motifLibPanel.setLayout(new FlowLayout());
-        //motifLibPanel.setBackground(Color.red);
-
-        //motifLibPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-
         initMotifLibPanel();
 
         motifShelfPanel = new JPanel();
         motifShelfPanel.setLayout(new FlowLayout());
         initMotifShelfPanel();
-        
-        initMotifLibPanelListener();
 
         contentPanel.add(motifLibPanel);
         contentPanel.add(motifShelfPanel);
-
         this.add(contentPanel);
-
+        
         initLayout();
+
+        //init listener
+        initMotifLibPanelListener();
     }
 
     private void initMotifLibPanel() {
+        motifLibPanel.setPreferredSize(new Dimension(800, 150));
+
         DefaultListModel<String> model = new DefaultListModel<>();  
         for (int shelfId = 0; shelfId < motifLib.size(); shelfId++) {
             model.addElement("Motif Shelf of Length (" + (shelfId + 1) + ")");
@@ -65,15 +64,20 @@ public class WeightedMotifPanel extends SingleResultPanel {
         if (motifLib.size() > 0) {
             motifShelfIdJList.setSelectedIndex(0);
         }
+
         motifShelfIdScrollPane = new JScrollPane();
+        motifShelfIdScrollPane.setPreferredSize(new Dimension(790, 150)); 
+
 	    motifLibPanel.add(motifShelfIdJList);
         motifLibPanel.add(motifShelfIdScrollPane);
+
+        //setViewportView can only apply to the component that has been added to the panel
         motifShelfIdScrollPane.setViewportView(motifShelfIdJList);
-        motifShelfIdScrollPane.setPreferredSize(new Dimension(790, 150)); 
-        motifLibPanel.setPreferredSize(new Dimension(800, 150));
     }
 
     private void initMotifShelfPanel() {
+        motifShelfPanel.setPreferredSize(new Dimension(800, 150));
+
         motifLibJList = new ArrayList<>(); 
         for (int shelfId = 0; shelfId < motifLib.size(); shelfId++) { 
             DefaultListModel<Score> model = new DefaultListModel<>();  
@@ -88,14 +92,13 @@ public class WeightedMotifPanel extends SingleResultPanel {
         System.out.println("Selected shelf Id: " + shelfId);
 
         motifScrollPane = new JScrollPane();
+        motifScrollPane.setPreferredSize(new Dimension(790, 150)); 
+
         motifShelfPanel.add(motifScrollPane);
-        //motifShelfPanel.setBackground(Color.green);
         if (shelfId >= 0) {
 	        motifShelfPanel.add(motifLibJList.get(shelfId));	
             motifScrollPane.setViewportView(motifLibJList.get(shelfId));
-            motifScrollPane.setPreferredSize(new Dimension(790, 150)); 
         }
-        motifShelfPanel.setPreferredSize(new Dimension(800, 150));
     }
 
     private void initMotifLibPanelListener() {
@@ -130,9 +133,10 @@ public class WeightedMotifPanel extends SingleResultPanel {
 
     private List<List<Score>> motifLib;
     private JList motifShelfIdJList;
+    private List<JList<Score>> motifLibJList;
+
     private JScrollPane motifShelfIdScrollPane;
     private JScrollPane motifScrollPane;
-    private List<JList<Score>> motifLibJList;
 }
 
 class ScoreRenderer extends JLabel implements ListCellRenderer<Score> {
