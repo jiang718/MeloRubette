@@ -286,4 +286,13 @@ public class MeloRubette extends SimpleAbstractRubette {
         return motifManager.getMotifLib();
     }
 
+    public Score getWeightedScore() {
+        return motifManager.getScore();
+    }
+
+    public List<WeightedOnset> getWeightedOnsetList() {
+        return motifManager.getWeightedOnsetList();
+    }
+
+
 }

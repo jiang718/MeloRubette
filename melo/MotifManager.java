@@ -653,13 +653,6 @@ class ShapeManager {
         }
     }
 
-    List<WeightedOnset> toWeightedOnsetList() {
-        if (weightedOnsetList == null || weightedOnsetList.isEmpty()) {
-            return null;
-        }
-        return weightedOnsetList;
-    }
-
     Denotator toWeightedOnsetListDeno() {
         if (weightedOnsetList == null || weightedOnsetList.isEmpty()) {
             return null;
@@ -679,6 +672,15 @@ class ShapeManager {
         }
         return null;
     }
+
+    /************ Internal Data Output BEGIN ****************/
+    List<WeightedOnset> getWeightedOnsetList() {
+        if (weightedOnsetList == null || weightedOnsetList.isEmpty()) {
+            return null;
+        }
+        return weightedOnsetList;
+    }
+    /************ Internal Data Output END ****************/
 }
 
 class RigidShapeManager extends ShapeManager {
@@ -941,12 +943,6 @@ public class MotifManager {
         weightedScoreForm = FormFactory.makePowerForm("weightedScoreForm", weightedNoteForm);
     }
 
-    List<WeightedOnset> toWeighedOnsetList() {
-        if (shapeManagerList == null || shapeManagerList.get(shapeSelec) == null) {
-            return null;
-        }
-        return shapeManagerList.get(shapeSelec).toWeightedOnsetList();
-    }
     public Denotator toWeightedOnsetListDeno() {
         if (shapeManagerList == null || shapeManagerList.get(shapeSelec) == null) {
             return null;
@@ -999,15 +995,20 @@ public class MotifManager {
         }
         return null;
     }
-
-    public Denotator toBoiledDownWeightListDeno() {
-        return null;
-    }
     /********************* Format END ***********************************/
 
     /********************* Internal Data Output BEGIN *****************************/
     public List<List<Score>> getMotifLib() {
         return motifLib;
+    }
+    public Score getScore() { 
+        return score;
+    }
+    public List<WeightedOnset> getWeightedOnsetList() {
+        if (shapeManagerList == null || shapeManagerList.get(shapeSelec) == null) {
+            return null;
+        }
+        return shapeManagerList.get(shapeSelec).getWeightedOnsetList();
     }
     /********************* Internal Data Output END *******************************/
     
