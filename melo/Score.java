@@ -574,5 +574,10 @@ public class Score {
         }
         System.out.println();
     }
+
+    @Override
+    public String toString() {
+        return "I'm a motif.";
+    }
     /*********************Debugging END**********/
 }

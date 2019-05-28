@@ -22,7 +22,6 @@ package melo;
 import java.util.*; 
 import javax.swing.*;
 import java.awt.event.*;
-import java.awt.*;
 
 import org.rubato.base.*; 
 import org.rubato.math.yoneda.*;
@@ -71,6 +70,8 @@ public class MeloRubette extends SimpleAbstractRubette {
     private boolean ifVariChanged = true;
     private boolean ifShapeSelecChanged = true;
     private boolean ifNeighbourChanged = true;
+    //output for UI Panels
+    private List<List<Score>> motifLib;
 
 
     //
@@ -262,7 +263,6 @@ public class MeloRubette extends SimpleAbstractRubette {
         setOutput(2, weightedOnsetListDeno);
     }
 
-
     public boolean applyProperties() {
         MeloMainScreen mainScreen = (MeloMainScreen) properties;
         if (mainScreen != null) {
@@ -279,6 +279,11 @@ public class MeloRubette extends SimpleAbstractRubette {
         //    System.out.println("scoreDeno == null");
         //}
         return true;
+    }
+
+    //get output for UI
+    public List<List<Score>> getMotifLib() {
+        return motifManager.getMotifLib();
     }
 
 }

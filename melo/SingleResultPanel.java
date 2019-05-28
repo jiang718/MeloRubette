@@ -22,30 +22,33 @@ public class SingleResultPanel extends javax.swing.JPanel {
     }
 
     private void initLayout() {
-        //this.setLayout(new FlowLayout());
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setSize(1024, 200);
     }
 
     private void initComponents() {
         initLayout();
 
-        JTextArea textArea = new JTextArea(15, 50);
-        textArea.setWrapStyleWord(true);
-        textArea.setEditable(false);
-        JScrollPane scroller = new JScrollPane(textArea);
-        scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        JPanel inputpanel = new JPanel();
-        inputpanel.setLayout(new FlowLayout());
-        JTextField input = new JTextField(20);
-        JButton button = new JButton("Enter");
-        DefaultCaret caret = (DefaultCaret) textArea.getCaret();
-        caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-        this.add(scroller);
-        inputpanel.add(input);
-        inputpanel.add(button);
-        this.add(inputpanel);
+        //
+        
+
+        //JTextArea textArea = new JTextArea(15, 50);
+        //textArea.setWrapStyleWord(true);
+        //textArea.setEditable(false);
+        //JScrollPane scroller = new JScrollPane(textArea);
+        //scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        //scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        //JPanel inputpanel = new JPanel();
+        //inputpanel.setLayout(new FlowLayout());
+        //JTextField input = new JTextField(20);
+        //JButton button = new JButton("Enter");
+        //DefaultCaret caret = (DefaultCaret) textArea.getCaret();
+        //caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+        //this.add(scroller);
+        //inputpanel.add(input);
+        //inputpanel.add(button);
+        //this.add(inputpanel);
     }
 
-    private MeloRubette meloRubette;
+    protected MeloRubette meloRubette;
 }

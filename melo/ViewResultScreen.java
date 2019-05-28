@@ -22,10 +22,11 @@ public class ViewResultScreen extends javax.swing.JPanel {
 
     private void initLayout() {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setPreferredSize(new Dimension(1600, 950));
     }
 
     private void initComponents() {
-        weightedMotifPanel = new SingleResultPanel(meloRubette);
+        weightedMotifPanel = new WeightedMotifPanel(meloRubette);
         pitchOnsetAxisPanel = new PitchOnsetAxisPanel(meloRubette);
 
         this.add(weightedMotifPanel);
@@ -34,7 +35,7 @@ public class ViewResultScreen extends javax.swing.JPanel {
     }
     
     
-    private SingleResultPanel weightedMotifPanel; 
+    private WeightedMotifPanel weightedMotifPanel; 
     private PitchOnsetAxisPanel pitchOnsetAxisPanel; 
     private MeloRubette meloRubette;
 }

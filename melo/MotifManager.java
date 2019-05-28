@@ -1004,6 +1004,12 @@ public class MotifManager {
         return null;
     }
     /********************* Format END ***********************************/
+
+    /********************* Internal Data Output BEGIN *****************************/
+    public List<List<Score>> getMotifLib() {
+        return motifLib;
+    }
+    /********************* Internal Data Output END *******************************/
     
     /**************************CalMotifLib START**********************/
     void searchMotif(List<Integer> rankList, int currentIndex, int nextAvaliableId, int noteLimit, int shelfIndex, double span) {
@@ -1208,14 +1214,8 @@ public class MotifManager {
 
 
         //System.out.println("test rigid/dia/elas shape");
-
-
         //System.out.println("test getDis rigid");
-
-
         //System.out.println("test getDis dia/elas");
-
-        
     }
 
     /****************************Reset Weight END***********************/
