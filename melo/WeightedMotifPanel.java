@@ -5,12 +5,15 @@
  */
 package melo;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.*;
 import java.awt.FlowLayout;
 import java.awt.Point;
+import java.awt.SystemColor;
+import java.awt.Toolkit;
 import java.lang.*;
 import javax.swing.*;
 import javax.swing.event.*;
@@ -25,11 +28,14 @@ public class WeightedMotifPanel extends SingleResultPanel {
 
     public WeightedMotifPanel(MeloRubette meloRubetteT) {
         super(meloRubetteT);
-        initComponents();
+        this.setLayout(new FlowLayout());
+        this.setPreferredSize(new Dimension(1600, 150));
+
+        init();
     }
 
 
-    private void initComponents() {
+    private void init() {
         motifLib = meloRubette.getMotifLib();
 
         JPanel contentPanel = new JPanel();
@@ -46,8 +52,6 @@ public class WeightedMotifPanel extends SingleResultPanel {
         contentPanel.add(motifLibPanel);
         contentPanel.add(motifShelfPanel);
         this.add(contentPanel);
-        
-        initLayout();
 
         //init listener
         initMotifLibPanelListener();
@@ -66,7 +70,7 @@ public class WeightedMotifPanel extends SingleResultPanel {
         }
 
         motifShelfIdScrollPane = new JScrollPane();
-        motifShelfIdScrollPane.setPreferredSize(new Dimension(790, 150)); 
+        motifShelfIdScrollPane.setPreferredSize(new Dimension(790, 150));
 
 	    motifLibPanel.add(motifShelfIdJList);
         motifLibPanel.add(motifShelfIdScrollPane);
@@ -88,6 +92,7 @@ public class WeightedMotifPanel extends SingleResultPanel {
 			motifJList.setCellRenderer(new ScoreRenderer());
             motifLibJList.add(motifJList);
         }
+
         int shelfId = motifShelfIdJList.getSelectedIndex();
         System.out.println("Selected shelf Id: " + shelfId);
 
@@ -96,8 +101,9 @@ public class WeightedMotifPanel extends SingleResultPanel {
 
         motifShelfPanel.add(motifScrollPane);
         if (shelfId >= 0) {
-	        motifShelfPanel.add(motifLibJList.get(shelfId));	
-            motifScrollPane.setViewportView(motifLibJList.get(shelfId));
+            motifJList = motifLibJList.get(shelfId);
+	        motifShelfPanel.add(motifJList);	
+            motifScrollPane.setViewportView(motifJList);
         }
     }
 
@@ -106,34 +112,60 @@ public class WeightedMotifPanel extends SingleResultPanel {
             .addListSelectionListener(
                 new ShelfIdJListSelectionHandler(this)
             );
+        for (int shelfId = 0; shelfId < motifLib.size(); shelfId++) {
+            motifLibJList.get(shelfId).getSelectionModel()
+                .addListSelectionListener(
+                    new MotifJListSelectionHandler(this)
+                );
+        }
     }
 
-
-    private void initLayout() {
-        this.setLayout(new FlowLayout());
-        this.setPreferredSize(new Dimension(1600, 150));
-    }
 
 
     /************** Actions START ****************/
     public void changeMotifShelfSelection(int firstIndex, int lastIndex) {
         if (firstIndex != lastIndex) {
             motifShelfPanel.remove(motifLibJList.get(firstIndex));
-            motifShelfPanel.add(motifLibJList.get(lastIndex));
+            motifJList = motifLibJList.get(lastIndex);
+            motifJList.clearSelection();
+            motifShelfPanel.add(motifJList);
             System.out.println("I really changed!!!!! from " + firstIndex + " " + lastIndex);
 
             motifScrollPane.setViewportView(motifLibJList.get(lastIndex));
             motifScrollPane.getViewport().setViewPosition(new Point(0,0));
+
         }
+    }
+
+    public void showViewMotifPanel() {
+        JFrame frame = new JFrame("Motif");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        viewMotifScreen = new ViewMotifScreen((Score)motifJList.getSelectedValue());
+
+        frame.getContentPane().add(BorderLayout.CENTER, viewMotifScreen);
+        frame.pack();
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setLocation(dim.width/2-frame.getSize().width/2, frame.getHeight()/2-frame.getSize().height/2);
+        frame.setVisible(true);
+        frame.setResizable(false);
+        viewMotifScreen.requestFocus();
     }
     /************** Actions END ****************/
 
 	private JPanel motifLibPanel;
     private JPanel motifShelfPanel;
+    private JPanel viewMotifScreen;
 
     private List<List<Score>> motifLib;
     private JList motifShelfIdJList;
     private List<JList<Score>> motifLibJList;
+    private JList<Score> motifJList;
 
     private JScrollPane motifShelfIdScrollPane;
     private JScrollPane motifScrollPane;
@@ -144,6 +176,20 @@ class ScoreRenderer extends JLabel implements ListCellRenderer<Score> {
     public Component getListCellRendererComponent(JList<? extends Score> list, Score score,
 		int index, boolean isSelected, boolean cellHasFocus) {
         setText("Motif " + (index + 1));
+        if (isSelected) {
+            //setBackground(HIGHLIGHT_COLOR);
+            System.out.println("Motif Number " + (index+1) + " is selected");
+            setOpaque(true);
+            setBackground(list.getSelectionBackground());
+            setForeground(list.getSelectionForeground());
+            setText("Motif " + (index + 1));
+            System.out.println("Motif Number " + (index+1) + " is selected (after)");
+        } else {
+            System.out.println("Motif Number " + (index+1) + " is not selected");
+            setOpaque(false);
+            setBackground(list.getBackground());
+            setForeground(list.getForeground());
+        }
         return this;
     }
      
@@ -162,3 +208,15 @@ class ShelfIdJListSelectionHandler implements ListSelectionListener {
     private WeightedMotifPanel father;
 }
 
+class MotifJListSelectionHandler implements ListSelectionListener {
+    public MotifJListSelectionHandler(WeightedMotifPanel fatherT) {
+        father = fatherT;
+    }
+    public void valueChanged(ListSelectionEvent e) {
+        if (e.getValueIsAdjusting()) {
+            return;
+        }
+        father.showViewMotifPanel();
+    }
+    WeightedMotifPanel father;
+}
