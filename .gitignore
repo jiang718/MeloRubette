@@ -1,3 +1,8 @@
-*.jar
 *.class
+*.classpath
+*.ignore
+*.jar
+*.project
+*.rbo
 *.swp
+target/

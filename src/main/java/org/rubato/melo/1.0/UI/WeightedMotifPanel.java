@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package melo;
+package org.rubato.melo;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -82,9 +82,11 @@ public class WeightedMotifPanel extends SingleResultPanel {
     private void initMotifShelfPanel() {
         motifShelfPanel.setPreferredSize(new Dimension(800, 150));
 
+        System.out.println("Motif Lib Size: " + motifLib.size());
         motifLibJList = new ArrayList<>(); 
         for (int shelfId = 0; shelfId < motifLib.size(); shelfId++) { 
             DefaultListModel<Score> model = new DefaultListModel<>();  
+            System.out.println("Motif Lib (" + (shelfId+1) + " ) Size: " + motifLib.get(shelfId).size());
             for (int motifId = 0; motifId < motifLib.get(shelfId).size(); motifId++) {
                 model.addElement(motifLib.get(shelfId).get(motifId));
             }
@@ -178,14 +180,14 @@ class ScoreRenderer extends JLabel implements ListCellRenderer<Score> {
         setText("Motif " + (index + 1));
         if (isSelected) {
             //setBackground(HIGHLIGHT_COLOR);
-            System.out.println("Motif Number " + (index+1) + " is selected");
+            //System.out.println("Motif Number " + (index+1) + " is selected");
             setOpaque(true);
             setBackground(list.getSelectionBackground());
             setForeground(list.getSelectionForeground());
             setText("Motif " + (index + 1));
-            System.out.println("Motif Number " + (index+1) + " is selected (after)");
+            //System.out.println("Motif Number " + (index+1) + " is selected (after)");
         } else {
-            System.out.println("Motif Number " + (index+1) + " is not selected");
+            //System.out.println("Motif Number " + (index+1) + " is not selected");
             setOpaque(false);
             setBackground(list.getBackground());
             setForeground(list.getForeground());

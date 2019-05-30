@@ -1,5 +1,5 @@
 
-package melo; 
+package org.rubato.melo; 
 import org.rubato.base.*;
 import org.rubato.math.yoneda.*;
 import org.rubato.composer.RunInfo;

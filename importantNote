@@ -73,3 +73,5 @@ before build denotator:
         return null;
     }
 }
+
+get size of a deno

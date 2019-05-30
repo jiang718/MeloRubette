@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package melo;
+package org.rubato.melo;
 
 import java.awt.*;
 import java.awt.event.*;

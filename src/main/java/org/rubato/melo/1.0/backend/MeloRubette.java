@@ -18,10 +18,13 @@
  */
 
 
-package melo;
-import java.util.*; 
-import javax.swing.*;
+package org.rubato.melo;
+
 import java.awt.event.*;
+import java.lang.Math;
+import java.util.*; 
+
+import javax.swing.*;
 
 import org.rubato.base.*; 
 import org.rubato.math.yoneda.*;
@@ -62,7 +65,8 @@ public class MeloRubette extends SimpleAbstractRubette {
     private Score score;
     //UI Input
     private boolean ifInv = false, ifRetro = false, ifRetroInv = false;
-    private int noteLimit = 1;
+    private int noteLimit = 0;
+    private int maxNoteLimit = 0;
     private double span = 1;
     private int shapeSelec = 0;
     private double neighbour = 5;
@@ -76,10 +80,11 @@ public class MeloRubette extends SimpleAbstractRubette {
 
     //
     public void setNoteLimit(int noteLimitT) {
-        if (noteLimit != noteLimitT) {
+        int newNoteLimit = Math.max(maxNoteLimit, noteLimitT);
+        if (noteLimit != newNoteLimit) {
             ifNoteLimitChanged = true;
         }
-        noteLimit = noteLimitT;
+        noteLimit = newNoteLimit;
         System.out.println("New Notes' limit: " + noteLimit);
     }
     public void setSpan(double spanT) {
@@ -146,11 +151,12 @@ public class MeloRubette extends SimpleAbstractRubette {
         setShapeSelec(shapeSelec);
         setNeighbour(neighbour);
 
-        //if
         if (score == null) {
             System.out.println("Run rubato to set score first");
+            //TODO:
+            //Pop up a window to notify running 
         } else {
-            System.out.println("Calculatint the weight...");
+            System.out.println("Calculate the weight...");
             motifManager = new MotifManager(scoreDeno, noteLimit, span); 
             motifManager.calWeight(ifInv, ifRetro, ifRetroInv, shapeSelec, neighbour);
             //if (ifNoteLimitChanged || ifSpanChanged) {
@@ -203,6 +209,7 @@ public class MeloRubette extends SimpleAbstractRubette {
             scoreDenoPrev = scoreDeno;
             scoreDeno = (PowerDenotator)getInput(0);
             score = new Score(scoreDeno);
+            maxNoteLimit = score.size();
             //calWeight();
             updateOutput();
         }

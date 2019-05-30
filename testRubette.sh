@@ -1,7 +1,5 @@
-rm -f melo/*.class melo.jar
 rm ~/.rubato/plugins/melo.jar
-javac -classpath ../rubato.jar melo/*.java
-jar cvmf MeloManifest melo.jar melo 
-cp melo.jar ~/.rubato/plugins/
-rm melo/*.class
+mvn package
+cp target/melo-1.0.jar ~/.rubato/plugins/melo.jar
+rm target/melo-1.0.jar
 java -Djava.library.path=../ -jar ../rubato.jar

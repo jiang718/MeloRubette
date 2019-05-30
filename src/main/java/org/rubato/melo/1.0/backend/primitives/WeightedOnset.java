@@ -1,5 +1,5 @@
 
-package melo; 
+package org.rubato.melo; 
 import java.util.*;
 import org.rubato.base.*;
 import org.rubato.math.yoneda.*;
