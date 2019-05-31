@@ -4,7 +4,7 @@ A plugin(rubette) for open source composer software rubato<br />
 First download and install rubato software from http://www.rubato.org/rubatocomposer.html<br />
 Then go into the rubato installation folder, run
 ```
-git clone MeloRubette
+git clone https://github.com/jiang718/MeloRubette 
 cd MeloRubette
 ```
 
