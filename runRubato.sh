@@ -1,3 +1,4 @@
 #!/bin/bash -x
-LIB_DIR=$(readlink -f $(dirname $0)/lib)
-java -Djava.library.path=$LIB_DIR -jar $LIB_DIR/rubato.jar
+RUBATO_FILE=$(readlink -f lib/rubato.jar)
+LIB_DIR=$(readlink -f lib)
+java -Djava.library.path=$LIB_DIR -jar $RUBATO_FILE
