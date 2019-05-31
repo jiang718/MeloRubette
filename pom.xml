@@ -45,7 +45,7 @@
                         <configuration>
                             <tasks>
                                 <exec executable="/bin/bash">
-                                    <arg value="scripts/runRubato.sh" />
+                                    <arg value="runRubato.sh" />
                                 </exec>
                             </tasks>
                         </configuration>

@@ -1,10 +1,5 @@
 *.class
 *.classpath
 *.ignore
-*.jar
-*.project
-*.rbo
 *.swp
-demo/
-LinuxSupport/
 target/
