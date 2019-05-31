@@ -44,11 +44,12 @@ mvn post-clean
 
 
 ----------------------------------------------------------------------------------
-
 NOTE: rubato.jar is the rubato software, it's update to date for the time being.
+You can use the rubato.jar downloaded from the offical website http://www.rubato.org/.
 Please manually update the rubato jar if you have to.
 
 ```
-cp <PATH_TO_NEW_RUBATO_JAR> <PATH_TO_REPO>/lib/
+rm <PATH_TO_REPO>/lib/rubato.jar
+ln -f <PATH_TO_PREFERRED_RUBATO_JAR> <PATH_TO_REPO>/lib/rubato.jar
 ./env_config.sh
 ```

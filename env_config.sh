@@ -1,4 +1,5 @@
 #!/bin/bash
-LIB_DIR=$(readlink -f $(dirname $0)/lib)
+RUBATO_FILE=$(readlink -f lib/rubato.jar)
+echo $RUBATO_FILE
 echo "Installing Rubato..."
-mvn install:install-file -Dfile=$LIB_DIR/rubato.jar -DgroupId=org.rubato -DartifactId=rubato -Dversion=1 -Dpackaging=jar
+mvn install:install-file -Dfile=$RUBATO_FILE -DgroupId=org.rubato -DartifactId=rubato -Dversion=1 -Dpackaging=jar
