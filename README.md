@@ -13,7 +13,23 @@ To build the plugin:
 mvn package
 ```
 
-To test the plugin interactively:
+
+To interactively test the plugin
 ```
-./testRubette.sh
+mvn verify 
+```
+
+To clean:
+```
+mvn clean
+```
+
+To aggresively clean the plugin (this will delete melo rubette in rubato plugin folder!!!):
+```
+mvn post-clean
+```
+
+To only run rubato:
+```
+./scripts/runRubato.sh
 ```
