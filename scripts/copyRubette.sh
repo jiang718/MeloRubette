@@ -1,5 +1,6 @@
 #!/bin/bash -x
 REPO_DIR=$(readlink -f $(dirname $0)/..)
+# SOURCE_JAR="melo-1.0-jar-with-dependencies.jar"
 SOURCE_JAR="melo-1.0.jar"
 TARGET_JAR="melo.jar"
 SOURCE_PATH=$REPO_DIR/target/$SOURCE_JAR

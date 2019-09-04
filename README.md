@@ -5,7 +5,8 @@
 ## Dependencies
 - Install [Java JDK](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
 - Install [maven](https://maven.apache.org/install.html).
-- \(optional) Install [rubato](http://www.rubato.org/rubatocomposer.html) if you want to, you can use the one in this repository instead. See [Updating Rubato](#updating-rubato)
+- \(optional) Install [rubato](http://www.rubato.org/rubatocomposer.html) if you don't want to use the rubato in this repo, to set it correctly, this repo should be put inside the installation location of the installed Rubato.
+- \(optional) Refer to [Updating Rubato](#updating-rubato) if you want to customize the installation location for rubato.
 <br />
 
 ## Installations 

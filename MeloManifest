@@ -1,2 +1,3 @@
 Manifest-Version: 1.0
 Plugin: org.rubato.melo.MeloRubette
+Class-Path: lib/rubato.jar lib/jfreechart-1.0.19.jar lib/jcommon-1.0.23.jar 
