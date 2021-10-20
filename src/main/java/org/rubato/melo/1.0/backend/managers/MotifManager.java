@@ -35,7 +35,7 @@ import org.rubato.logeo.FormFactory;
 
 
 /**
- * @author Mijia Jiang 
+ * @author Mijia Jiang
  */
 
 public class MotifManager {
@@ -46,7 +46,7 @@ public class MotifManager {
     protected PowerForm weightedScoreForm;
 
     protected PowerForm motifForm;
-    protected LimitForm weightedMotifForm; 
+    protected LimitForm weightedMotifForm;
     protected PowerForm weightedMotifListForm;
 
     Score score;
@@ -92,7 +92,7 @@ public class MotifManager {
 
     /********************* Format START ***********************************/
     public void genForm() {
-        //for weighted motif 
+        //for weighted motif
         motifForm = (PowerForm)Repository.systemRepository().getForm("Score");
         weightForm = (SimpleForm)Repository.systemRepository().getForm("Real");
         List<Form> weightedMotifFormList = new LinkedList<Form>();
@@ -101,11 +101,11 @@ public class MotifManager {
         weightedMotifFormList.add(weightForm);
         weightedMotifFormLabelList.add("motif");
         weightedMotifFormLabelList.add("weight");
-        weightedMotifForm = FormFactory.makeLimitForm("weightedMotif", weightedMotifFormList); 
+        weightedMotifForm = FormFactory.makeLimitForm("weightedMotif", weightedMotifFormList);
         weightedMotifForm.setLabels(weightedMotifFormLabelList);
         weightedMotifListForm = FormFactory.makePowerForm("weightedMotifList", weightedMotifForm);
 
-        //for weighted score 
+        //for weighted score
         noteForm = (LimitForm)Repository.systemRepository().getForm("Note");
         List<Form> weightedNoteFormList = new LinkedList<Form>();
         List<String> weightedNoteFormLabelList = new LinkedList<String>();
@@ -176,7 +176,7 @@ public class MotifManager {
     public List<List<Score>> getMotifLib() {
         return motifLib;
     }
-    public Score getScore() { 
+    public Score getScore() {
         return score;
     }
     public List<WeightedOnset> getWeightedOnsetList() {
@@ -186,15 +186,15 @@ public class MotifManager {
         return shapeManagerList.get(shapeSelec).getWeightedOnsetList();
     }
     /********************* Internal Data Output END *******************************/
-    
+
     /**************************CalMotifLib START**********************/
     void searchMotif(List<Integer> rankList, int currentIndex, int nextAvaliableId, int noteLimit, int shelfIndex, double span) {
         if (currentIndex == noteLimit) {
-            Score motif = new Score(score, new ArrayList<Integer>(rankList)); 
+            Score motif = new Score(score, new ArrayList<Integer>(rankList));
             motifLib.get(shelfIndex).add(motif);
             return;
         }
-        for (int i = nextAvaliableId; i<=score.size()-(noteLimit-currentIndex); i++) {  
+        for (int i = nextAvaliableId; i<=score.size()-(noteLimit-currentIndex); i++) {
             if (currentIndex!=0) {
                 //skip if two notes has same onset
                 double currentOnset = score.getOnset(i);
@@ -207,7 +207,7 @@ public class MotifManager {
                 int smallestFinalIndex=i+noteLimit-currentIndex-1;
                 double finalOnset=score.getOnset(smallestFinalIndex);
                 int firstIndex = rankList.get(0);
-                double firstOnset = score.getOnset(firstIndex); 
+                double firstOnset = score.getOnset(firstIndex);
                 if (finalOnset-firstOnset>span) break;
             }
             rankList.add(i);
@@ -228,7 +228,7 @@ public class MotifManager {
             int nextAvaliableId = 0;
             int limit = i;
             int shelfIndex = i-1;
-            searchMotif(rankList, currentIndex, nextAvaliableId, limit, shelfIndex, span); 
+            searchMotif(rankList, currentIndex, nextAvaliableId, limit, shelfIndex, span);
             System.out.println("after search:" + i);
             if (motifLib.get(motifLib.size()-1).size() == 0) {
                 motifLib.remove(motifLib.size()-1);
@@ -242,7 +242,7 @@ public class MotifManager {
 
     /****************************CalWeight START*************************/
     //call by user UI Action  -> calWeight
-    public void calVariSelec(boolean ifInv, boolean ifRetro, boolean ifRetroInv){ 
+    public void calVariSelec(boolean ifInv, boolean ifRetro, boolean ifRetroInv){
         System.out.println("calculating vari selec");
         System.out.println("ifInv: " + ifInv);
         System.out.println("ifRetro: " + ifRetro);
@@ -384,13 +384,13 @@ public class MotifManager {
         int motifId = 0;
         motifLib.get(shelfId).get(motifId).print();
         System.out.println("inverted score");
-        Score invScore = motifLib.get(shelfId).get(motifId).getInv(); 
+        Score invScore = motifLib.get(shelfId).get(motifId).getInv();
         invScore.print();
         System.out.println("retrograded score");
-        Score retroScore = motifLib.get(shelfId).get(motifId).getRetro(); 
+        Score retroScore = motifLib.get(shelfId).get(motifId).getRetro();
         retroScore.print();
         System.out.println("retroinverted score");
-        Score retroInvScore = motifLib.get(shelfId).get(motifId).getRetroInv(); 
+        Score retroInvScore = motifLib.get(shelfId).get(motifId).getRetroInv();
         retroInvScore.print();
 
 

@@ -18,7 +18,7 @@ import org.rubato.logeo.FormFactory;
 
 
 /**
- * @author Mijia Jiang 
+ * @author Mijia Jiang
  */
 
 public class Score {
@@ -55,19 +55,19 @@ public class Score {
             if (rankListT == null || rankListT.isEmpty() || rankListT.get(0) == -1) {
                 System.out.println("this is not motif");
                 ifMotif = false;
-                for (int rankId = 0; rankId < scorerDeno.getFactorCount(); rankId++) { 
+                for (int rankId = 0; rankId < scorerDeno.getFactorCount(); rankId++) {
                     rankList.add(-1);
                 }
-                for (int weightId = 0; weightId < scorerDeno.getFactorCount(); weightId++) { 
+                for (int weightId = 0; weightId < scorerDeno.getFactorCount(); weightId++) {
                     weightList.add(0.0);
                 }
             } else {
                 System.out.println("this is motif");
                 ifMotif = true;
-                for (int rankId = 0; rankId < rankListT.size(); rankId++) { 
+                for (int rankId = 0; rankId < rankListT.size(); rankId++) {
                     rankList.add(rankListT.get(rankId));
                 }
-                for (int weightId = 0; weightId < rankListT.size(); weightId++) { 
+                for (int weightId = 0; weightId < rankListT.size(); weightId++) {
                     weightList.add(0.0);
                 }
             }
@@ -83,7 +83,7 @@ public class Score {
                 scoreDeno = new PowerDenotator(NameDenotator.make("scoreDeno"), scoreForm, scoreDenoList);
             } else {
                 if (mode == Status.CopyMode.NOCOPY) {
-                    scoreDeno = scorerDeno; 
+                    scoreDeno = scorerDeno;
                 } else {
                     scoreDeno = scorerDeno.copy();
                 }
@@ -111,13 +111,13 @@ public class Score {
         genForm();
         rankList = new ArrayList<Integer>();
         if (rankListT == null || rankListT.isEmpty() || rankListT.get(0) == -1) {
-            ifMotif = false; 
-            for (int rankId = 0; rankId < rankListT.size(); rankId++) { 
+            ifMotif = false;
+            for (int rankId = 0; rankId < rankListT.size(); rankId++) {
                 rankList.add(-1);
             }
         } else {
             ifMotif = true;
-            for (int rankId = 0; rankId < rankListT.size(); rankId++) { 
+            for (int rankId = 0; rankId < rankListT.size(); rankId++) {
                 rankList.add(rankListT.get(rankId));
             }
         }
@@ -160,9 +160,9 @@ public class Score {
         rankListForm = FormFactory.makePowerForm("rankListForm", rankForm);
         List<Form> scoreOrMotifFormList = new LinkedList<Form>();
         List<String> scoreOrMotifFormLabelList = new LinkedList<String>();
-        scoreOrMotifFormList.add(scoreForm); 
-        scoreOrMotifFormList.add(rankListForm); 
-        scoreOrMotifFormList.add(weightListForm); 
+        scoreOrMotifFormList.add(scoreForm);
+        scoreOrMotifFormList.add(rankListForm);
+        scoreOrMotifFormList.add(weightListForm);
         scoreOrMotifFormLabelList.add("score");
         scoreOrMotifFormLabelList.add("rankList");
         scoreOrMotifFormLabelList.add("weightList");
@@ -199,9 +199,9 @@ public class Score {
             scoreOrMotifDenoList.add(rankListDeno);
             scoreOrMotifDenoList.add(weightListDeno);
             System.out.println("After scoreOrMotifDenoList");
-            LimitDenotator scoreOrMotifDeno = new LimitDenotator(NameDenotator.make("scoreOrMotifDeno"), scoreOrMotifForm, scoreOrMotifDenoList);  
+            LimitDenotator scoreOrMotifDeno = new LimitDenotator(NameDenotator.make("scoreOrMotifDeno"), scoreOrMotifForm, scoreOrMotifDenoList);
             System.out.println("After scoreOrMotifDeno");
-            return scoreOrMotifDeno;        
+            return scoreOrMotifDeno;
         } catch (RubatoException e) {
             e.printStackTrace();
         }
@@ -216,7 +216,7 @@ public class Score {
     /*********************Format END**********************/
 
 
-    
+
     /*********************Property START**********************/
     public int size() {
         return scoreDeno.getFactorCount();
@@ -244,7 +244,7 @@ public class Score {
 
     /************Property(note related) START********************/
     public Denotator getNoteDeno(int index) {
-        return scoreDeno.getFactor(index); 
+        return scoreDeno.getFactor(index);
 
     }
     public double getOnset(int index) {
@@ -258,7 +258,7 @@ public class Score {
         Note note = new Note(scoreDeno.getFactor(index));
         return note.getOnset();
     }
-    public double getPitch(int index) { 
+    public double getPitch(int index) {
         try {
             if (index < 0 || index > size()) {
                 throw new Exception("wrong index");
@@ -280,7 +280,7 @@ public class Score {
         Note note = new Note(scoreDeno.getFactor(index));
         return note.getLoudness();
     }
-    public double getDuration(int index) { 
+    public double getDuration(int index) {
         try {
             if (index < 0 || index > size()) {
                 throw new Exception("wrong index");
@@ -537,7 +537,7 @@ public class Score {
         return totalWeight;
     }
     public void setTotalWeight(double totalWeightT) {
-        totalWeight = totalWeightT; 
+        totalWeight = totalWeightT;
     }
     /*********************Target END*************/
 

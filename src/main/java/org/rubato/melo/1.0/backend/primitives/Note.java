@@ -1,5 +1,5 @@
 
-package org.rubato.melo; 
+package org.rubato.melo;
 import org.rubato.base.*;
 import org.rubato.math.yoneda.*;
 import org.rubato.composer.RunInfo;
@@ -15,7 +15,7 @@ import org.rubato.base.RubatoException;
 
 
 /**
- * @author Mijia Jiang 
+ * @author Mijia Jiang
  * This is manager class for a single note
  */
 
@@ -49,7 +49,7 @@ public class Note {
         SimpleDenotator onsetDeno = (SimpleDenotator)noteDeno.getFactor(0);
         return onsetDeno.getReal();
     }
-    public double getPitch() { 
+    public double getPitch() {
         SimpleDenotator pitchDeno = (SimpleDenotator)noteDeno.getFactor(1);
         return pitchDeno.getRational().doubleValue();
     }
@@ -57,7 +57,7 @@ public class Note {
         SimpleDenotator loudnessDeno = (SimpleDenotator)noteDeno.getFactor(2);
         return loudnessDeno.getInteger();
     }
-    public double getDuration() { 
+    public double getDuration() {
         SimpleDenotator durationDeno = (SimpleDenotator)noteDeno.getFactor(3);
         return durationDeno.getReal();
     }
@@ -67,35 +67,35 @@ public class Note {
     }
     public void setOnset(double onset) {
         try {
-            SimpleDenotator d = new SimpleDenotator(NameDenotator.make(""), (SimpleForm)Repository.systemRepository().getForm("Onset"), new RElement(onset)); 
+            SimpleDenotator d = new SimpleDenotator(NameDenotator.make(""), (SimpleForm)Repository.systemRepository().getForm("Onset"), new RElement(onset));
             setOnset(d);
         } catch (Exception e) {
         }
     }
     public void setPitch(double pitch) {
         try {
-            SimpleDenotator d = new SimpleDenotator(NameDenotator.make(""), (SimpleForm)Repository.systemRepository().getForm("Pitch"), new QElement(new Rational(pitch))); 
+            SimpleDenotator d = new SimpleDenotator(NameDenotator.make(""), (SimpleForm)Repository.systemRepository().getForm("Pitch"), new QElement(new Rational(pitch)));
             setPitch(d);
         } catch (Exception e) {
         }
     }
     public void setLoudness(int loudness) {
         try {
-            SimpleDenotator d = new SimpleDenotator(NameDenotator.make(""), (SimpleForm)Repository.systemRepository().getForm("Loudness"), new ZElement(loudness)); 
+            SimpleDenotator d = new SimpleDenotator(NameDenotator.make(""), (SimpleForm)Repository.systemRepository().getForm("Loudness"), new ZElement(loudness));
             setLoudness(d);
         } catch (Exception e) {
         }
     }
     public void setDuration(double duration) {
         try {
-            SimpleDenotator d = new SimpleDenotator(NameDenotator.make(""), (SimpleForm)Repository.systemRepository().getForm("Duration"), new RElement(duration)); 
+            SimpleDenotator d = new SimpleDenotator(NameDenotator.make(""), (SimpleForm)Repository.systemRepository().getForm("Duration"), new RElement(duration));
             setDuration(d);
         } catch (Exception e) {
         }
     }
     public void setVoice(int voice) {
         try {
-            SimpleDenotator d = new SimpleDenotator(NameDenotator.make(""), (SimpleForm)Repository.systemRepository().getForm("Voice"), new ZElement(voice)); 
+            SimpleDenotator d = new SimpleDenotator(NameDenotator.make(""), (SimpleForm)Repository.systemRepository().getForm("Voice"), new ZElement(voice));
             setVoice(d);
         } catch (Exception e) {
         }

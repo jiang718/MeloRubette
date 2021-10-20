@@ -212,7 +212,7 @@ public class MeloMainScreen extends JPanel {
 
         jSeparator1 = new JSeparator();
 
-        
+
         shapeSelecLabel = new JLabel();
         shapeSelecLabel.setText("shape");
         shapeSelecComboBox = new JComboBox<>();
@@ -264,7 +264,7 @@ public class MeloMainScreen extends JPanel {
                     e.printStackTrace();
                 }
             }
-        }); 
+        });
 
         viewResultBtn = new JButton();
         viewResultBtn.setText("view result");
@@ -282,7 +282,7 @@ public class MeloMainScreen extends JPanel {
 
         initLayout();
     }// </editor-fold>//GEN-END:initComponents
-    
+
 	public void createResultScreen()
 		{
 			EventQueue.invokeLater(new Runnable()
@@ -292,14 +292,14 @@ public class MeloMainScreen extends JPanel {
 				{
 					JFrame frame = new JFrame("Result");
 					frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-					try 
+					try
 					{
 					   UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 					} catch (Exception e) {
 					   e.printStackTrace();
 					}
 
-                     
+
 
 					//JPanel panel = new JPanel();
 					//panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -341,12 +341,12 @@ public class MeloMainScreen extends JPanel {
 					//inputpanel2.add(button2);
 					//panel2.add(inputpanel2);
 
-                    //JPanel viewResultPanel = new JPanel(); 
+                    //JPanel viewResultPanel = new JPanel();
 					//viewResultPanel.setLayout(new BoxLayout(viewResultPanel, BoxLayout.Y_AXIS));
                     //viewResultPanel.setOpaque(true);
                     //viewResultPanel.add(panel);
                     //viewResultPanel.add(panel2);
-                    
+
                     viewResultScreen = new ViewResultScreen(meloRubette);
 
 					frame.getContentPane().add(BorderLayout.CENTER, viewResultScreen);
@@ -363,7 +363,7 @@ public class MeloMainScreen extends JPanel {
 		}
 
 
-    
+
     private JButton calWeightBtn;
     private JCheckBox invCheckBox;
     private JSeparator jSeparator1;

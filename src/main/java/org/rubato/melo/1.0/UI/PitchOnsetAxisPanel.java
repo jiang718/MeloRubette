@@ -32,10 +32,10 @@ public class PitchOnsetAxisPanel extends javax.swing.JPanel {
         this.add(weightedOnsetPanel);
         initLayout();
     }
-    
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private SingleResultPanel weightedScorePanel; 
-    private SingleResultPanel weightedOnsetPanel; 
+    private SingleResultPanel weightedScorePanel;
+    private SingleResultPanel weightedOnsetPanel;
     private MeloRubette meloRubette;
 }

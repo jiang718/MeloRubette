@@ -24,7 +24,7 @@ public class ViewMotifScreen extends javax.swing.JPanel {
 
     private void initComponents() {
     }
-    
-    
-    private Score motif; 
+
+
+    private Score motif;
 }

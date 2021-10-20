@@ -86,14 +86,14 @@ public class WeightedScorePanel extends SingleResultPanel {
     //private JFreeChart createChart(XYDataset dataset) {
 
     //    JFreeChart chart = ChartFactory.createXYLineChart(
-    //            "Average salary per age", 
-    //            "Age", 
-    //            "Salary (€)", 
-    //            dataset, 
+    //            "Average salary per age",
+    //            "Age",
+    //            "Salary (€)",
+    //            dataset,
     //            PlotOrientation.VERTICAL,
-    //            true, 
-    //            true, 
-    //            false 
+    //            true,
+    //            true,
+    //            false
     //    );
 
     //    // XYPlot plot = chart.getXYPlot();

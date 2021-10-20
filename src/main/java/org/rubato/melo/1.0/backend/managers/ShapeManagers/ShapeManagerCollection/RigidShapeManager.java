@@ -35,7 +35,7 @@ import org.rubato.logeo.FormFactory;
 
 
 /**
- * @author Mijia Jiang 
+ * @author Mijia Jiang
  */
 
 public class RigidShapeManager extends ShapeManager {

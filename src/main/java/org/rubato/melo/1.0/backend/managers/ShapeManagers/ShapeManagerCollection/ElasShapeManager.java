@@ -34,10 +34,10 @@ import org.rubato.logeo.FormFactory;
 
 
 /**
- * @author Mijia Jiang 
+ * @author Mijia Jiang
  */
 
-public class ElasShapeManager extends ShapeManager { 
+public class ElasShapeManager extends ShapeManager {
     //variMotifLib -> variShapeLib
     void calVariShapeLib(List<List<List<Score>>> variMotifLib, boolean[] variSelec) {
         System.out.println("calculating variShapeLib");
@@ -73,7 +73,7 @@ public class ElasShapeManager extends ShapeManager {
                         //from [motif.size()-1, (motif.size()-1)*2-1] : tangent(angle)
                         double disSum = 0;
                         for (int noteId = 1; noteId < motif.size(); noteId++) {
-                            pitchNow = pitchNext; 
+                            pitchNow = pitchNext;
                             onsetNow = onsetNext;
                             pitchNext = motif.getPitch(noteId);
                             onsetNext = motif.getOnset(noteId);
@@ -85,7 +85,7 @@ public class ElasShapeManager extends ShapeManager {
                             pointList[noteId-1+(motif.size()-1)][0] = pitchD / onsetD;
                         }
                         for (int pointId= 0; pointId < motif.size()-1; pointId++) {
-                            pointList[pointId][0] /= disSum; 
+                            pointList[pointId][0] /= disSum;
                         }
                         boolean ifMinimizeDis = false;
                         boolean ifRev = motif.getIfRev();

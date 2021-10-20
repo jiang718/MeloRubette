@@ -1,5 +1,5 @@
 
-package org.rubato.melo; 
+package org.rubato.melo;
 import java.util.*;
 import org.rubato.base.*;
 import org.rubato.math.yoneda.*;
@@ -14,13 +14,13 @@ import org.rubato.logeo.FormFactory;
 
 
 /**
- * @author Mijia Jiang 
+ * @author Mijia Jiang
  * This is manager class for a single note
  */
 
 public class WeightedOnset {
     SimpleForm onsetForm;
-    SimpleForm weightForm; 
+    SimpleForm weightForm;
     LimitForm weightedOnsetForm;
 
     private double onset;

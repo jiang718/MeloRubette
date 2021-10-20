@@ -33,9 +33,9 @@ public class ViewResultScreen extends javax.swing.JPanel {
         this.add(pitchOnsetAxisPanel);
         initLayout();
     }
-    
-    
-    private WeightedMotifPanel weightedMotifPanel; 
-    private PitchOnsetAxisPanel pitchOnsetAxisPanel; 
+
+
+    private WeightedMotifPanel weightedMotifPanel;
+    private PitchOnsetAxisPanel pitchOnsetAxisPanel;
     private MeloRubette meloRubette;
 }

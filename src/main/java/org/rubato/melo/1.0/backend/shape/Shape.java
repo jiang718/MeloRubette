@@ -34,7 +34,7 @@ import org.rubato.logeo.FormFactory;
 
 
 /**
- * @author Mijia Jiang 
+ * @author Mijia Jiang
  */
 
 class RankIterator {
@@ -58,7 +58,7 @@ class RankIterator {
         try {
             if (!hasNext()) {
                 throw new Exception("wrong rank iterator range!");
-            } 
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -66,7 +66,7 @@ class RankIterator {
         if (shape.getIfRev() == false) {
             rankId++;
         } else {
-            rankId--; 
+            rankId--;
         }
         return rank;
     }
@@ -117,7 +117,7 @@ public class Shape {
         contentFtList = new double[diffMaxT];
         presenceFtList = new double[diffMaxT];
 
-        ifMinimizeDis = ifMinimizeDisT; 
+        ifMinimizeDis = ifMinimizeDisT;
 
         weight = 0;
         hasCalWeight = false;
@@ -138,7 +138,7 @@ public class Shape {
         rankListForm = FormFactory.makePowerForm("rankListForm", rankForm);
 
         weightForm = (SimpleForm)Repository.systemRepository().getForm("Real");
-        
+
         List<Form> shapeFormList = new LinkedList<Form>();
         List<String> shapeFormLabelList = new LinkedList<String>();
         shapeFormList.add(pointListForm);
@@ -160,7 +160,7 @@ public class Shape {
                 List<Denotator> pointDenoList = new ArrayList<Denotator>();
                 for (int pointSingleId = 0; pointSingleId < point.length; pointSingleId++) {
                     double pointSingle = point[pointSingleId];
-                    SimpleDenotator pointSingleDeno = new SimpleDenotator(NameDenotator.make("pointSingleDeno"), pointSingleForm, new RElement(pointSingle)); 
+                    SimpleDenotator pointSingleDeno = new SimpleDenotator(NameDenotator.make("pointSingleDeno"), pointSingleForm, new RElement(pointSingle));
                     pointDenoList.add(pointSingleDeno);
                 }
                 PowerDenotator pointDeno = new PowerDenotator(NameDenotator.make("pointDeno"), pointForm, pointDenoList);
@@ -169,12 +169,12 @@ public class Shape {
             List<Denotator> rankListDenoList = new ArrayList<Denotator>();
             for (int rankId = 0; rankId < rankList.length; rankId++) {
                 int rank = rankList[rankId];
-                SimpleDenotator rankDeno = new SimpleDenotator(NameDenotator.make("rankDeno"),rankForm, new ZElement(rank)); 
+                SimpleDenotator rankDeno = new SimpleDenotator(NameDenotator.make("rankDeno"),rankForm, new ZElement(rank));
                 rankListDenoList.add(rankDeno);
             }
             PowerDenotator rankListDeno = new PowerDenotator(NameDenotator.make("rankListDeno"), rankListForm, rankListDenoList);
 
-            SimpleDenotator weightDeno = new SimpleDenotator(NameDenotator.make("weightDeno"),weightForm, new RElement(weight)); 
+            SimpleDenotator weightDeno = new SimpleDenotator(NameDenotator.make("weightDeno"),weightForm, new RElement(weight));
 
             List<Denotator> shapeDenoList = new ArrayList<Denotator>();
             shapeDenoList.add(pointListDeno);
@@ -276,7 +276,7 @@ public class Shape {
             for (int dimentionId = 0; dimentionId < pointDimention; dimentionId++) {
                 dimentionShift[dimentionId] = -dimentionShift[dimentionId] / size();
             }
-        } 
+        }
         double sum = 0;
         for (int pointId = 0; pointId < size(); pointId++) {
             double[] pointIn = getPoint(pointId), pointO = other.getPoint(pointId);
@@ -298,7 +298,7 @@ public class Shape {
         return sum / size();
     }
 
-    
+
     //shaper : shape
     public double getDis(int[] rankList, Shape other) {
         if (size() != rankList.length || rankList.length != other.size()) {
@@ -320,7 +320,7 @@ public class Shape {
             for (int dimentionId = 0; dimentionId < pointDimention; dimentionId++) {
                 dimentionShift[dimentionId] = -dimentionShift[dimentionId] / size();
             }
-        } 
+        }
         double sum = 0;
         for (int rankId = 0; rankId < rankList.length; rankId++) {
             int pointId = rankList[rankId];
@@ -346,8 +346,8 @@ public class Shape {
 
     //TODO
     public boolean getIfContain(Shape shape) {
-        RankIterator rankerIt = getRankIterator(); 
-        RankIterator rankIt = shape.getRankIterator(); 
+        RankIterator rankerIt = getRankIterator();
+        RankIterator rankIt = shape.getRankIterator();
         if (shape.size() == 0) {
             return true;
         }
@@ -391,10 +391,10 @@ public class Shape {
         double twoFt = 1;  //2*(-diff)
         double presence = 0;
         double content = 0;
-        for (int diff = 0; diff < diffMax; diff++) { 
+        for (int diff = 0; diff < diffMax; diff++) {
             presence += presenceFtList[diff] * twoFt;
             content += contentFtList[diff] * twoFt;
-            twoFt /= 2.0; 
+            twoFt /= 2.0;
         }
         weight = presence * content;
         //System.out.println("Presence: " + presence + " content : " + content);

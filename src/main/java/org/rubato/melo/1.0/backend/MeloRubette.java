@@ -22,11 +22,11 @@ package org.rubato.melo;
 
 import java.awt.event.*;
 import java.lang.Math;
-import java.util.*; 
+import java.util.*;
 
 import javax.swing.*;
 
-import org.rubato.base.*; 
+import org.rubato.base.*;
 import org.rubato.math.yoneda.*;
 import org.rubato.composer.RunInfo;
 import org.rubato.math.yoneda.NameDenotator;
@@ -44,7 +44,7 @@ import org.rubato.logeo.FormFactory;
 
 /**
  * The Melo Rubette which generates and analyzes motives
- * @author Mijia Jiang 
+ * @author Mijia Jiang
  */
 
 public class MeloRubette extends SimpleAbstractRubette {
@@ -53,7 +53,7 @@ public class MeloRubette extends SimpleAbstractRubette {
     //protected PowerForm scoreForm;
     //protected PowerForm sameLengthMotivesForm;
     //protected SimpleForm lengthForm;
-    //protected LimitForm sameLengthLimitForm; 
+    //protected LimitForm sameLengthLimitForm;
     //protected PowerForm allMotivesForm;
 
     //UI
@@ -154,10 +154,10 @@ public class MeloRubette extends SimpleAbstractRubette {
         if (score == null) {
             System.out.println("Run rubato to set score first");
             //TODO:
-            //Pop up a window to notify running 
+            //Pop up a window to notify running
         } else {
             System.out.println("Calculate the weight...");
-            motifManager = new MotifManager(scoreDeno, noteLimit, span); 
+            motifManager = new MotifManager(scoreDeno, noteLimit, span);
             motifManager.calWeight(ifInv, ifRetro, ifRetroInv, shapeSelec, neighbour);
             //if (ifNoteLimitChanged || ifSpanChanged) {
             //    System.out.println("Note limit or span changed...");
@@ -186,7 +186,7 @@ public class MeloRubette extends SimpleAbstractRubette {
     }
 
 
-	
+
     public MeloRubette() {
 		//input 0: score (Power)
 		//input 1: NoteLimit (Simple -> int)
@@ -201,10 +201,10 @@ public class MeloRubette extends SimpleAbstractRubette {
 		//type 0: SimpleDenotator
 		//type 1: Limit
 		//type 2: CoLimit
-		//type 3: PowerDenotator 
+		//type 3: PowerDenotator
         //type 4: List
         if (getInput(0).getType() != 3) {
-		//TODO        
+		//TODO
 	} else {
             scoreDenoPrev = scoreDeno;
             scoreDeno = (PowerDenotator)getInput(0);
@@ -214,16 +214,16 @@ public class MeloRubette extends SimpleAbstractRubette {
             updateOutput();
         }
     }
-   
-    
+
+
     public String getGroup() {
         return "Score";
     }
-    
+
     public String getName() {
         return "Melo";
     }
-	
+
     public String getShortDescription() {
         return "Generates a list of sub motives";
     }
@@ -253,7 +253,7 @@ public class MeloRubette extends SimpleAbstractRubette {
 
     public void updateOutput() {
         if ((scoreDenoPrev != null && !scoreDenoPrev.equals(scoreDeno)) || motifManager == null) {
-            motifManager = new MotifManager(scoreDeno, noteLimit, span); 
+            motifManager = new MotifManager(scoreDeno, noteLimit, span);
             motifManager.print();
         }
 

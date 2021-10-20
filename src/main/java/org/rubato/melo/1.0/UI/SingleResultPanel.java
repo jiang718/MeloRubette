@@ -30,7 +30,7 @@ public class SingleResultPanel extends javax.swing.JPanel {
         initLayout();
 
         //
-        
+
 
         //JTextArea textArea = new JTextArea(15, 50);
         //textArea.setWrapStyleWord(true);

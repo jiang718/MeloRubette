@@ -34,11 +34,11 @@ import org.rubato.logeo.FormFactory;
 
 
 /**
- * @author Mijia Jiang 
+ * @author Mijia Jiang
  */
 
 class ShapeManager {
-    PowerForm weightedOnsetListForm; 
+    PowerForm weightedOnsetListForm;
 
     protected Score score;
     protected List<List<List<Score>>> variMotifLib;//0-3 variation
@@ -55,7 +55,7 @@ class ShapeManager {
 
     public ShapeManager(Score scoreT, List<List<List<Score>>> variMotifLibT, boolean[] variSelecT, int shapeSelecT, double neighbourT) {
         score = scoreT;
-        variMotifLib = variMotifLibT; 
+        variMotifLib = variMotifLibT;
         variSelec = variSelecT;
         shapeSelec = shapeSelecT;
         neighbour = neighbourT;
@@ -92,17 +92,17 @@ class ShapeManager {
 
     void calVariDisMinLib(List<List<List<Shape>>> variShapeLib, boolean[] variSelec) {
         System.out.println("calculating variDisMinLib");
-        variDisMinLib = new double[4][][][]; 
+        variDisMinLib = new double[4][][][];
         for (int variId = 0; variId < 4; variId++) {
             if (variSelec[variId] == true) {
                 //System.out.println("vari selection: " + variId);
                 List<List<Shape>> shapeLib = variShapeLib.get(variId);
                 variDisMinLib[variId] = new double[shapeLib.size()][][];
                 double[][][] psDisMinLib = variDisMinLib[variId];
-                for (int shelfId = 0; shelfId < shapeLib.size(); shelfId++) { 
+                for (int shelfId = 0; shelfId < shapeLib.size(); shelfId++) {
                     List<Shape> shapeShelf = shapeLib.get(shelfId);
                     psDisMinLib[shelfId] = new double[shapeShelf.size()][shapeShelf.size()];
-                    double[][] psDisMinShelf = psDisMinLib[shelfId]; 
+                    double[][] psDisMinShelf = psDisMinLib[shelfId];
                     for (int shapeIId = 0; shapeIId < shapeShelf.size(); shapeIId++) {
                         Shape shapeI = shapeShelf.get(shapeIId);
                         for (int shapeJId = shapeIId; shapeJId < shapeShelf.size(); shapeJId++) {
@@ -127,9 +127,9 @@ class ShapeManager {
             System.out.println("selfDisMinShelf's length count:" + selfDisMinShelf.length);
             disMinLib[shelfId] = new double[selfDisMinShelf.length][selfDisMinShelf.length];
             double[][] disMinShelf = disMinLib[shelfId];
-            for (int disI = 0; disI < selfDisMinShelf.length; disI++) {  
+            for (int disI = 0; disI < selfDisMinShelf.length; disI++) {
                 for (int disJ = 0; disJ < selfDisMinShelf.length; disJ++) {
-                    disMinShelf[disI][disJ] = selfDisMinShelf[disI][disJ]; 
+                    disMinShelf[disI][disJ] = selfDisMinShelf[disI][disJ];
                 }
             }
         }
@@ -157,12 +157,12 @@ class ShapeManager {
     void calPresenceAndContentFt(List<List<List<Shape>>> variShapeLib, boolean[] variSelec, double neighbour) {
         System.out.println("calculating presenceFt and contentFt");
         List<List<Shape>> selfShapeLib = variShapeLib.get(0);
-        for (int shelfId = 0; shelfId < selfShapeLib.size(); shelfId++) { 
+        for (int shelfId = 0; shelfId < selfShapeLib.size(); shelfId++) {
             //System.out.println("shelfId: " + shelfId);
             //double[][] disMinShelf = disMinLib[shelfId];
             List<Shape> shapeShelf = selfShapeLib.get(shelfId);
             for (int shapeIId= 0; shapeIId < shapeShelf.size(); shapeIId++) {
-                Shape shapeI = shapeShelf.get(shapeIId); 
+                Shape shapeI = shapeShelf.get(shapeIId);
                 for (int shapeJId= shapeIId; shapeJId< shapeShelf.size(); shapeJId++) {
                     double disMinIJ = Double.MAX_VALUE;
                     //find the minimum dis between variation
@@ -185,7 +185,7 @@ class ShapeManager {
                         for (int shelfIder = shelfId; shelfIder < selfShapeLib.size(); shelfIder++) {
                             List<Shape> shapeShelfer = selfShapeLib.get(shelfIder);
                             for(int shapeIder=0; shapeIder<shapeShelfer.size();shapeIder++) {
-                                Shape shaper = shapeShelfer.get(shapeIder); 
+                                Shape shaper = shapeShelfer.get(shapeIder);
                                 //System.out.println("Shape I: " );
                                 //shapeI.print();
                                 //System.out.println("Shape J: " );
@@ -254,7 +254,7 @@ class ShapeManager {
     }
 
     void genForm() {
-        weightedOnsetListForm = FormFactory.makePowerForm("weightedOnsetList", new WeightedOnset().getForm()); 
+        weightedOnsetListForm = FormFactory.makePowerForm("weightedOnsetList", new WeightedOnset().getForm());
     }
 
     void calWeightedOnsetList(Score score) {
@@ -270,7 +270,7 @@ class ShapeManager {
                 weightedOnset.setWeight(weight);
             } else {
                 double weight = score.getWeight(noteId);
-                WeightedOnset weightedOnset = new WeightedOnset(onsetNow, weight); 
+                WeightedOnset weightedOnset = new WeightedOnset(onsetNow, weight);
                 weightedOnsetList.add(weightedOnset);
             }
             onsetPrev = onsetNow;

@@ -60,7 +60,7 @@ public class WeightedMotifPanel extends SingleResultPanel {
     private void initMotifLibPanel() {
         motifLibPanel.setPreferredSize(new Dimension(800, 150));
 
-        DefaultListModel<String> model = new DefaultListModel<>();  
+        DefaultListModel<String> model = new DefaultListModel<>();
         for (int shelfId = 0; shelfId < motifLib.size(); shelfId++) {
             model.addElement("Motif Shelf of Length (" + (shelfId + 1) + ")");
         }
@@ -83,9 +83,9 @@ public class WeightedMotifPanel extends SingleResultPanel {
         motifShelfPanel.setPreferredSize(new Dimension(800, 150));
 
         System.out.println("Motif Lib Size: " + motifLib.size());
-        motifLibJList = new ArrayList<>(); 
-        for (int shelfId = 0; shelfId < motifLib.size(); shelfId++) { 
-            DefaultListModel<Score> model = new DefaultListModel<>();  
+        motifLibJList = new ArrayList<>();
+        for (int shelfId = 0; shelfId < motifLib.size(); shelfId++) {
+            DefaultListModel<Score> model = new DefaultListModel<>();
             System.out.println("Motif Lib (" + (shelfId+1) + " ) Size: " + motifLib.get(shelfId).size());
             for (int motifId = 0; motifId < motifLib.get(shelfId).size(); motifId++) {
                 model.addElement(motifLib.get(shelfId).get(motifId));
@@ -99,12 +99,12 @@ public class WeightedMotifPanel extends SingleResultPanel {
         System.out.println("Selected shelf Id: " + shelfId);
 
         motifScrollPane = new JScrollPane();
-        motifScrollPane.setPreferredSize(new Dimension(790, 150)); 
+        motifScrollPane.setPreferredSize(new Dimension(790, 150));
 
         motifShelfPanel.add(motifScrollPane);
         if (shelfId >= 0) {
             motifJList = motifLibJList.get(shelfId);
-	        motifShelfPanel.add(motifJList);	
+	        motifShelfPanel.add(motifJList);
             motifScrollPane.setViewportView(motifJList);
         }
     }
@@ -194,7 +194,7 @@ class ScoreRenderer extends JLabel implements ListCellRenderer<Score> {
         }
         return this;
     }
-     
+
 }
 
 class ShelfIdJListSelectionHandler implements ListSelectionListener {
