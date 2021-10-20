@@ -50,7 +50,7 @@ public class MotifManager {
     protected PowerForm weightedMotifListForm;
 
     Score score;
-    int noteLimit;
+    int cardinality;
     double span;
 
     boolean ifInv, ifRetro, ifRetroInv;
@@ -66,18 +66,18 @@ public class MotifManager {
 
 
     /**************************BASIC START****************************/
-    public MotifManager(PowerDenotator scoreDeno, int noteLimitT, double spanT) {
-        this(scoreDeno, noteLimitT, spanT, Status.CopyMode.NOCOPY);
+    public MotifManager(PowerDenotator scoreDeno, int cardinalityT, double spanT) {
+        this(scoreDeno, cardinalityT, spanT, Status.CopyMode.NOCOPY);
     }
-    public MotifManager(PowerDenotator scoreDeno, int noteLimitT, double spanT, Status.CopyMode mode) {
+    public MotifManager(PowerDenotator scoreDeno, int cardinalityT, double spanT, Status.CopyMode mode) {
         System.out.println("Before genForm");
         //scoreOrMotifForm is needed for genForm
         score = new Score(scoreDeno, mode);
         genForm();
         System.out.println("After genForm");
 
-        noteLimit = Math.min(noteLimitT, scoreDeno.getFactorCount());
-        System.out.println("After noteLimit");
+        cardinality = Math.min(cardinalityT, scoreDeno.getFactorCount());
+        System.out.println("After cardinality");
         span = spanT;
         System.out.println("After span");
         motifLib = new ArrayList<List<Score>>();
@@ -85,7 +85,7 @@ public class MotifManager {
         motifLenLib = new ArrayList<Integer>();
         System.out.println("After motifLenLib");
         System.out.println("Before calMotifLib");
-        calMotifLib(score, noteLimit, span);
+        calMotifLib(score, cardinality, span);
         System.out.println("After calMotifLib");
     }
     /**************************BASIC START****************************/
@@ -188,13 +188,13 @@ public class MotifManager {
     /********************* Internal Data Output END *******************************/
 
     /**************************CalMotifLib START**********************/
-    void searchMotif(List<Integer> rankList, int currentIndex, int nextAvaliableId, int noteLimit, int shelfIndex, double span) {
-        if (currentIndex == noteLimit) {
+    void searchMotif(List<Integer> rankList, int currentIndex, int nextAvaliableId, int cardinality, int shelfIndex, double span) {
+        if (currentIndex == cardinality) {
             Score motif = new Score(score, new ArrayList<Integer>(rankList));
             motifLib.get(shelfIndex).add(motif);
             return;
         }
-        for (int i = nextAvaliableId; i<=score.size()-(noteLimit-currentIndex); i++) {
+        for (int i = nextAvaliableId; i<=score.size()-(cardinality-currentIndex); i++) {
             if (currentIndex!=0) {
                 //skip if two notes has same onset
                 double currentOnset = score.getOnset(i);
@@ -204,23 +204,23 @@ public class MotifManager {
                 }
 
                 //check span
-                int smallestFinalIndex=i+noteLimit-currentIndex-1;
+                int smallestFinalIndex=i+cardinality-currentIndex-1;
                 double finalOnset=score.getOnset(smallestFinalIndex);
                 int firstIndex = rankList.get(0);
                 double firstOnset = score.getOnset(firstIndex);
                 if (finalOnset-firstOnset>span) break;
             }
             rankList.add(i);
-            searchMotif(rankList, currentIndex+1, i+1, noteLimit, shelfIndex, span);
+            searchMotif(rankList, currentIndex+1, i+1, cardinality, shelfIndex, span);
             rankList.remove(currentIndex);
         }
     }
-    void calMotifLib(Score score, int noteLimit, double span) {
+    void calMotifLib(Score score, int cardinality, double span) {
         System.out.println("into generate motives:");
         List<Integer> rankList = new ArrayList<Integer>();
-        System.out.println("notes limit: " + noteLimit);
+        System.out.println("cardinality: " + cardinality);
         System.out.println("span: " + span);
-        for (int i = 1; i <= noteLimit; i++) {
+        for (int i = 1; i <= cardinality; i++) {
             motifLib.add(new ArrayList<Score>());
             motifLenLib.add(i);
             System.out.println("before search:" + i);
@@ -232,7 +232,7 @@ public class MotifManager {
             System.out.println("after search:" + i);
             if (motifLib.get(motifLib.size()-1).size() == 0) {
                 motifLib.remove(motifLib.size()-1);
-                noteLimit = motifLib.size()-1;
+                cardinality = motifLib.size()-1;
                 break;
             }
         }
@@ -407,7 +407,7 @@ public class MotifManager {
     public void print() {
         System.out.println("score: ");
         score.print();
-        System.out.println("\nnotes' limit: " + noteLimit);
+        System.out.println("\ncardinality: " + cardinality);
         System.out.println("motif library's' size: " + motifLib.size());
         for (int i = 0; i < motifLib.size(); i++) {
             System.out.println("Shelf " + (i+1) + " (Length = " + motifLenLib.get(i) + ")");

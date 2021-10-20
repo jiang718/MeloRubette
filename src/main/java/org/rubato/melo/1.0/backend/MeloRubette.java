@@ -65,12 +65,12 @@ public class MeloRubette extends SimpleAbstractRubette {
     private Score score;
     //UI Input
     private boolean ifInv = false, ifRetro = false, ifRetroInv = false;
-    private int noteLimit = 0;
-    private int maxNoteLimit = 0;
+    private int cardinality = 0;
+    private int maxCardinality = 0;
     private double span = 1;
     private int shapeSelec = 0;
     private double neighbour = 5;
-    private boolean ifNoteLimitChanged = false, ifSpanChanged = false;
+    private boolean ifCardinalityChanged = false, ifSpanChanged = false;
     private boolean ifVariChanged = true;
     private boolean ifShapeSelecChanged = true;
     private boolean ifNeighbourChanged = true;
@@ -79,13 +79,13 @@ public class MeloRubette extends SimpleAbstractRubette {
 
 
     //
-    public void setNoteLimit(int noteLimitT) {
-        int newNoteLimit = Math.max(maxNoteLimit, noteLimitT);
-        if (noteLimit != newNoteLimit) {
-            ifNoteLimitChanged = true;
+    public void setCardinality(int cardinalityT) {
+        int newCardinality = Math.max(maxCardinality, cardinalityT);
+        if (cardinality != newCardinality) {
+            ifCardinalityChanged = true;
         }
-        noteLimit = newNoteLimit;
-        System.out.println("New Notes' limit: " + noteLimit);
+        cardinality = newCardinality;
+        System.out.println("New Notes' limit: " + cardinality);
     }
     public void setSpan(double spanT) {
         if (span != spanT) {
@@ -134,16 +134,16 @@ public class MeloRubette extends SimpleAbstractRubette {
     }
 
     public void calWeight() {
-        calWeight(noteLimit, span, ifInv, ifRetro, ifRetroInv, shapeSelec, neighbour);
+        calWeight(cardinality, span, ifInv, ifRetro, ifRetroInv, shapeSelec, neighbour);
     }
-    public void calWeight(int noteLimitT, double spanT, double neighbourT) {
-        calWeight(noteLimitT, spanT, ifInv, ifRetro, ifRetroInv, shapeSelec, neighbourT);
+    public void calWeight(int cardinalityT, double spanT, double neighbourT) {
+        calWeight(cardinalityT, spanT, ifInv, ifRetro, ifRetroInv, shapeSelec, neighbourT);
     }
 
 
-    public void calWeight(int noteLimit, double span, boolean ifInv, boolean ifRetro, boolean ifRetroInv, int shapeSelec, double neighbour) {
+    public void calWeight(int cardinality, double span, boolean ifInv, boolean ifRetro, boolean ifRetroInv, int shapeSelec, double neighbour) {
         long startTime = System.nanoTime();
-        setNoteLimit(noteLimit);
+        setCardinality(cardinality);
         setSpan(span);
         setIfInv(ifInv);
         setIfRetro(ifRetro);
@@ -157,11 +157,11 @@ public class MeloRubette extends SimpleAbstractRubette {
             //Pop up a window to notify running
         } else {
             System.out.println("Calculate the weight...");
-            motifManager = new MotifManager(scoreDeno, noteLimit, span);
+            motifManager = new MotifManager(scoreDeno, cardinality, span);
             motifManager.calWeight(ifInv, ifRetro, ifRetroInv, shapeSelec, neighbour);
-            //if (ifNoteLimitChanged || ifSpanChanged) {
+            //if (ifCardinalityChanged || ifSpanChanged) {
             //    System.out.println("Note limit or span changed...");
-            //    ifNoteLimitChanged = false;
+            //    ifCardinalityChanged = false;
             //    ifSpanChanged = false;
             //    ifVariChanged = false;
             //    ifNeighbourChanged = false;
@@ -189,7 +189,7 @@ public class MeloRubette extends SimpleAbstractRubette {
 
     public MeloRubette() {
 		//input 0: score (Power)
-		//input 1: NoteLimit (Simple -> int)
+		//input 1: Cardinality (Simple -> int)
         //input 2: Span (Simple -> double)
         this.setInCount(1);
         //output 0: score (Power)
@@ -209,7 +209,7 @@ public class MeloRubette extends SimpleAbstractRubette {
             scoreDenoPrev = scoreDeno;
             scoreDeno = (PowerDenotator)getInput(0);
             score = new Score(scoreDeno);
-            maxNoteLimit = score.size();
+            maxCardinality = score.size();
             //calWeight();
             updateOutput();
         }
@@ -253,7 +253,7 @@ public class MeloRubette extends SimpleAbstractRubette {
 
     public void updateOutput() {
         if ((scoreDenoPrev != null && !scoreDenoPrev.equals(scoreDeno)) || motifManager == null) {
-            motifManager = new MotifManager(scoreDeno, noteLimit, span);
+            motifManager = new MotifManager(scoreDeno, cardinality, span);
             motifManager.print();
         }
 
@@ -273,12 +273,12 @@ public class MeloRubette extends SimpleAbstractRubette {
     public boolean applyProperties() {
         MeloMainScreen mainScreen = (MeloMainScreen) properties;
         if (mainScreen != null) {
-            System.out.println("notelimit from screen: " + mainScreen.getNoteLimit());
-            calWeight(mainScreen.getNoteLimit(), mainScreen.getSpan(), mainScreen.getNeighbour());
+            System.out.println("cardinality from screen: " + mainScreen.getCardinality());
+            calWeight(mainScreen.getCardinality(), mainScreen.getSpan(), mainScreen.getNeighbour());
         }
         //TODO
         //System.out.println("apply properties");
-        ////initialize note's limit and span
+        ////initialize cardinality and span
         //if (scoreDeno != null) {
         //    System.out.println("Initializing motif motifManager.");
         //    updateOutput();

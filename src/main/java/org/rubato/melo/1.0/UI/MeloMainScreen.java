@@ -23,10 +23,10 @@ public class MeloMainScreen extends JPanel {
         initComponents();
     }
 
-    public int getNoteLimit() {
+    public int getCardinality() {
         try {
-            int noteLimit = Integer.parseInt(noteLimitTextField.getText());
-            return noteLimit;
+            int cardinality = Integer.parseInt(cardinalityTextField.getText());
+            return cardinality;
         } catch (Exception e) {
         }
         return 1; //default
@@ -79,9 +79,9 @@ public class MeloMainScreen extends JPanel {
                                     .addComponent(spanTextField, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 234, GroupLayout.PREFERRED_SIZE)
                                     .addComponent(neighbourTextField, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 234, GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(noteLimitLabel)
+                                .addComponent(cardinalityLabel)
                                 .addGap(101, 101, 101)
-                                .addComponent(noteLimitTextField, GroupLayout.PREFERRED_SIZE, 234, GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(cardinalityTextField, GroupLayout.PREFERRED_SIZE, 234, GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(viewResultBtn))
                     .addGroup(layout.createSequentialGroup()
@@ -122,8 +122,8 @@ public class MeloMainScreen extends JPanel {
                 .addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                    .addComponent(noteLimitLabel)
-                    .addComponent(noteLimitTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cardinalityLabel)
+                    .addComponent(cardinalityTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(spanLabel)
@@ -177,16 +177,16 @@ public class MeloMainScreen extends JPanel {
         retroCheckBox.setText("retrograde");
         retroInvCheckBox.setText("retro-inversion");
 
-        noteLimitLabel = new JLabel();
-        noteLimitLabel.setText("note's limit");
-        noteLimitTextField = new JTextField();
-        //noteLimitTextField.setMinimum(0);
-        //noteLimitTextField.setMaximum(5);
-        noteLimitTextField.addActionListener(new ActionListener() {
+        cardinalityLabel = new JLabel();
+        cardinalityLabel.setText("cardinality");
+        cardinalityTextField = new JTextField();
+        //cardinalityTextField.setMinimum(0);
+        //cardinalityTextField.setMaximum(5);
+        cardinalityTextField.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 try {
-                    int noteLimit = Integer.parseInt(noteLimitTextField.getText());
-                    meloRubette.setNoteLimit(noteLimit);
+                    int cardinality = Integer.parseInt(cardinalityTextField.getText());
+                    meloRubette.setCardinality(cardinality);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -228,19 +228,19 @@ public class MeloMainScreen extends JPanel {
         calWeightBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 try {
-                    int noteLimit = Integer.parseInt(noteLimitTextField.getText());
-                    meloRubette.setNoteLimit(noteLimit);
-                    System.out.println("before cal weight note's limit:" + noteLimit);
+                    int cardinality = Integer.parseInt(cardinalityTextField.getText());
+                    meloRubette.setCardinality(cardinality);
+                    System.out.println("before cal weight cardinality:" + cardinality);
 
                     double span = Double.parseDouble(spanTextField.getText());
                     meloRubette.setSpan(span);
-                    System.out.println("before cal weight note's limit:" + span);
+                    System.out.println("before cal weight cardinality:" + span);
 
                     double neighbour = Double.parseDouble(neighbourTextField.getText());
                     meloRubette.setNeighbour(neighbour);
                     System.out.println("before cal weight neighbour:" + neighbour);
 
-                    meloRubette.calWeight(noteLimit, span, neighbour);
+                    meloRubette.calWeight(cardinality, span, neighbour);
 
                     viewResultBtn.setOpaque(true);
                     viewResultBtn.setEnabled(true);
@@ -369,8 +369,8 @@ public class MeloMainScreen extends JPanel {
     private JSeparator jSeparator1;
     private JLabel neighbourLabel;
     private JTextField neighbourTextField;
-    private JLabel noteLimitLabel;
-    private JTextField noteLimitTextField;
+    private JLabel cardinalityLabel;
+    private JTextField cardinalityTextField;
     private JCheckBox retroCheckBox;
     private JCheckBox retroInvCheckBox;
     private JComboBox<String> shapeSelecComboBox;
